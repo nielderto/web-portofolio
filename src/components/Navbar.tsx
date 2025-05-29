@@ -22,7 +22,7 @@ export default function Navbar() {
           <a href="#contact" className="hover:text-blue-500 transition-colors">Contact</a>
           <a href="#about" className="hover:text-blue-500 transition-colors">About</a>
           <a href="#projects" className="hover:text-blue-500 transition-colors">Projects</a>
-          <a href="#experience" className="hover:text-blue-500 transition-colors">Experience</a>
+          <a href="#experience" className="hover:text-blue-500 transition-colors">Hackathons</a>
         </div>
 
         {/* Mobile Navigation */}
@@ -32,7 +32,7 @@ export default function Navbar() {
               <a href="#contact" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
               <a href="#about" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
               <a href="#projects" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Projects</a>
-              <a href="#experience" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Experience</a>
+              <a href="#experience" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Hackathons</a>
             </div>
           </div>
         )}

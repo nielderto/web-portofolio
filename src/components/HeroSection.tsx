@@ -8,8 +8,8 @@ export default function HeroSection() {
       <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:w-1/2">
         <img
           src={`/avatar2.jpeg`}
-          alt="Neil"
-          className="w-32 h-32 rounded-full border-4 border-zinc-800"
+          alt="Neil, a passionate web developer and university student from Taiwan"
+          className="w-32 h-32 rounded-full border-4 border-zinc-800 shadow-2xl"
         />
         <div className="flex flex-col gap-2 justify-center items-center text-center">
           <h2 className="text-4xl md:text-5xl font-bold">Otneil (neil for short)</h2>
@@ -36,14 +36,16 @@ export default function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-white transition-transform duration-200 hover:scale-110"
+            aria-label="Visit Neil's GitHub profile"
           >
             <GithubLogo size={24} weight="bold" />
           </a>
           <a
-            href="www.linkedin.com/in/nielderto"
+            href="https://www.linkedin.com/in/nielderto"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-white transition-transform duration-200 hover:scale-110"
+            aria-label="Visit Neil's LinkedIn profile"
           >
             <LinkedinLogo size={24} weight="bold" />
           </a>
@@ -52,6 +54,7 @@ export default function HeroSection() {
             rel="noopener noreferrer"
             target="_blank"
             className="text-white hover:text-white transition-transform duration-200 hover:scale-110"
+            aria-label="Visit Neil's Twitter profile"
           >
             <TwitterLogo size={24} weight="bold" />
           </a>
