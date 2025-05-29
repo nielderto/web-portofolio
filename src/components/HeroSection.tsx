@@ -5,16 +5,16 @@ import { GithubLogo, LinkedinLogo, TwitterLogo } from "phosphor-react";
 export default function HeroSection() {
   return (
     <section id="about" className="flex flex-col justify-center items-center h-screen">
-      <div className="flex flex-col justify-center items-center gap-4 w-1/2">
+      <div className="flex flex-col justify-center items-center gap-4 w-full px-4 md:w-1/2">
         <img
           src={`/avatar2.jpeg`}
           alt="Neil"
           className="w-32 h-32 rounded-full border-4 border-zinc-800"
         />
-        <div className="flex flex-col gap-2">
-          <h2 className="text-4xl font-bold">Otneil (neil for short)</h2>
+        <div className="flex flex-col gap-2 justify-center items-center text-center">
+          <h2 className="text-4xl md:text-5xl font-bold">Otneil (neil for short)</h2>
         </div>
-        <p className="text-slate-300 text-center">
+        <p className="text-slate-300 text-center text-base md:text-lg">
           Passionate about turning ideas into interactive digital experiences.
           I'm a university student building the future one pixel at a time —
           blending code, design, and creativity to make the web a more beautiful

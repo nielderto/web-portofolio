@@ -1,36 +1,56 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+interface ContactForm {
+    name: string;
+    email: string;
+    message: string;
+}
 
 export default function Contact() {
-    const [form, setForm] = useState({ name: "", email: "", message: "" });
-    const [status, setStatus] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+    const form = useForm<ContactForm>({
+        defaultValues: {
+            name: "",
+            email: "",
+            message: "",
+        },
+    });
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setStatus("Sending...");
-        // Using Formspree for email delivery
-        const res = await fetch("https://formspree.io/f/movdogel", {
-            method: "POST",
-            headers: { 'Accept': 'application/json' },
-            body: JSON.stringify({
-                name: form.name,
-                email: form.email,
-                message: form.message,
-            })
-        });
-        if (res.ok) {
-            setStatus("Message sent!");
-            setForm({ name: "", email: "", message: "" });
-            toast.success("Message sent! I'll get back to you soon.");
-        } else {
-            setStatus("Something went wrong. Please try again.");
+    async function onSubmit(values: ContactForm) {
+        setIsSubmitting(true);
+        try {
+            const res = await fetch("https://formspree.io/f/movdogel", {
+                method: "POST",
+                headers: { 'Accept': 'application/json' },
+                body: JSON.stringify(values),
+            });
+            
+            if (res.ok) {
+                form.reset();
+                toast.success("Message sent! I'll get back to you soon.");
+            } else {
+                throw new Error("Failed to send message");
+            }
+        } catch (error) {
             toast.error("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
-    };
+    }
 
     return (
         <section id="contact" className="flex flex-col items-center justify-center min-h-screen py-20 px-6">
@@ -41,43 +61,60 @@ export default function Contact() {
                         Whether you have a project in mind, want to collaborate, or just want to say hello, I'd love to hear from you. I'm always open to discussing new ideas, creative opportunities, or potential partnerships. Drop me a message and I'll get back to you as soon as possible!
                     </p>
                 </div>
-                <form onSubmit={handleSubmit} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 w-full flex flex-col gap-6 border border-white/10">
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        value={form.name}
-                        onChange={handleChange}
-                        required
-                        className="p-3 rounded-lg bg-zinc-900/80 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-blue-400"
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Your Email"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                        className="p-3 rounded-lg bg-zinc-900/80 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-blue-400"
-                    />
-                    <textarea
-                        name="message"
-                        placeholder="Your Message"
-                        value={form.message}
-                        onChange={handleChange}
-                        required
-                        rows={5}
-                        className="p-3 rounded-lg bg-zinc-900/80 text-white placeholder-gray-400 border border-white/10 focus:outline-none focus:border-blue-400"
-                    />
-                    <button
-                        type="submit"
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
-                        disabled={status === "Sending..."}
-                    >
-                        {status === "Sending..." ? "Sending..." : "Send Message"}
-                    </button>
-                    {status && <p className="text-center text-white mt-2">{status}</p>}
-                </form>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 w-full flex flex-col gap-6 border border-white/10">
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-white">Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Your Name" {...field} className="bg-zinc-900/80 text-white border-white/10" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-white">Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Your Email" type="email" {...field} className="bg-zinc-900/80 text-white border-white/10" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="message"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-white">Message</FormLabel>
+                                    <FormControl>
+                                        <Textarea 
+                                            placeholder="Your Message" 
+                                            {...field} 
+                                            className="bg-zinc-900/80 text-white border-white/10 min-h-[120px]"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button 
+                            type="submit" 
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Sending..." : "Send Message"}
+                        </Button>
+                    </form>
+                </Form>
             </div>
         </section>
     );
