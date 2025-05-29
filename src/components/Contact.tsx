@@ -13,7 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, CheckCircle } from "lucide-react";
+import { GithubLogo, LinkedinLogo, TwitterLogo } from "phosphor-react";
 
 interface ContactForm {
     name: string;
@@ -44,17 +45,17 @@ const contactInfo = [
 
 const socialLinks = [
     {
-        icon: Github,
+        icon: GithubLogo,
         label: "GitHub",
         href: "https://github.com/nielderto",
     },
     {
-        icon: Linkedin,
+        icon: LinkedinLogo,
         label: "LinkedIn",
         href: "https://linkedin.com/in/nielderto",
     },
     {
-        icon: Twitter,
+        icon: TwitterLogo,
         label: "Twitter",
         href: "https://twitter.com/nieldert0",
     },
@@ -205,7 +206,7 @@ export default function Contact() {
                                         onClick={() => window.open(social.href, '_blank')}
                                         aria-label={social.label}
                                     >
-                                        <social.icon className="w-5 h-5" />
+                                        <social.icon size={24} weight="bold" />
                                     </Button>
                                 ))}
                             </div>
