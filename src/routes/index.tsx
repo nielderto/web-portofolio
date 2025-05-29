@@ -58,9 +58,7 @@ function ErrorBoundary({ error }: { error: Error }) {
   )
 }
 
-function App() {
-  const data = Route.useLoaderData()
-  
+function App() {  
   return (
     <>
       <HeroSection />
