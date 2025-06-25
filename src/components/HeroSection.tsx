@@ -16,7 +16,7 @@ export default function HeroSection() {
         </div>
         <p className="text-slate-300 text-center text-base md:text-lg">
           Passionate about turning ideas into interactive digital experiences.
-          I'm a university student building the future one pixel at a time —
+          I'm a university student building the future one pixel at a time
           blending code, design, and creativity to make the web a more beautiful
           place.
         </p>

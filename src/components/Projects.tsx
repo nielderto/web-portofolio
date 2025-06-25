@@ -9,7 +9,6 @@ const projects = [
         image: "onpay.png",
         link: "https://onpay-seamless.vercel.app/",
         github: "https://github.com/nielderto/OnPay",
-        tech: ["React", "Web3", "TypeScript", "Blockchain","Xellar"],
         year: "2025",
         status: "Live"
     },
@@ -19,46 +18,61 @@ const projects = [
         image: "betcha.png",
         link: "https://youtu.be/rKsd3i3iVhM?si=Tk4MFg0LM2zdAzZ_",
         github: "https://github.com/FOwen123/ETHGlobalTaipei2025",
-        tech: ["React", "Polygon", "Strava API", "Web3", "RainbowKit",],
         year: "2025",
         status: "Demo"
     },
+    {
+        title: "LinkFi",
+        description: "LinkFi is a payment similar to stripe but built with cross-chain blockchain payments, it has a few features that enable users to pay cross-chain aslong as it is EVM supported.",
+        image: "linkfi.png",
+        link: "https://https://github.com/FOwen123/Chromion-2025.com",
+        github: "https://github.com/FOwen123/Chromion-2025.com",
+        year: "2025",
+        status: "Live"
+    }
 ]
 
 export default function Projects() {
     return (
-        <section id="projects" className="flex flex-col items-center justify-center min-h-screen py-20 px-6 relative">
-            {/* Animated background elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-            </div>
-
-            <div className="relative z-10 w-full max-w-6xl">
+        <section id="projects" className="flex flex-col items-center justify-center min-h-screen py-20 px-6">
+            <div className="w-full max-w-4xl">
                 <div className="text-center mb-16">
-                    <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+                    <h1 className="text-4xl font-bold mb-4 text-white">
                         Featured Projects
                     </h1>
-                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                    <p className="text-gray-400 text-lg">
                         A showcase of my recent work in web development and blockchain technology
                     </p>
                 </div>
                 
-                <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-12">
                     {projects.map((project, idx) => (
                         <Card 
                             key={idx} 
-                            className="group border border-white/20 bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:border-white/40 hover:bg-white/10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10"
+                            className="border border-white/20 bg-white/5 rounded-lg overflow-hidden hover:border-white/30 transition-colors duration-300"
                         >
                             <CardContent className="p-0">
-                                <div className="flex flex-col lg:flex-row items-center">
+                                <div className="flex flex-col">
+                                    {/* Image Side */}
+                                    <div className="w-full border-b border-white/10 bg-zinc-800/30 flex items-center justify-center">
+                                        <img 
+                                            src={project.image} 
+                                            alt={project.title}
+                                            className="w-full h-48 md:h-64 object-contain p-4"
+                                            loading="lazy"
+                                            onError={(e) => {
+                                                e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzIyMjIyMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Qcm9qZWN0IEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+                                            }}
+                                        />
+                                    </div>
+                                    
                                     {/* Content Side */}
-                                    <div className="flex-1 p-8 lg:p-12 flex flex-col justify-center">
+                                    <div className="flex-1 p-8">
                                         <div className="flex items-center gap-3 mb-4">
                                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                                                 project.status === 'Live' 
-                                                    ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                                                    : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                                                    ? 'bg-green-500/20 text-green-400' 
+                                                    : 'bg-blue-500/20 text-blue-400'
                                             }`}>
                                                 {project.status}
                                             </span>
@@ -68,60 +82,30 @@ export default function Projects() {
                                             </div>
                                         </div>
 
-                                        <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-blue-100 transition-colors">
+                                        <h3 className="text-2xl font-bold text-white mb-4">
                                             {project.title}
                                         </h3>
                                         
-                                        <p className="text-gray-300 text-base leading-relaxed mb-6">
+                                        <p className="text-gray-300 leading-relaxed mb-6">
                                             {project.description}
                                         </p>
 
-                                        {/* Tech Stack */}
-                                        <div className="flex flex-wrap gap-2 mb-6">
-                                            {project.tech.map((tech, techIdx) => (
-                                                <span 
-                                                    key={techIdx}
-                                                    className="px-3 py-1 bg-white/10 border border-white/20 rounded-full text-sm text-gray-300 hover:bg-white/20 transition-colors"
-                                                >
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-
-                                        <div className="flex flex-row gap-3">
+                                        <div className="flex gap-3">
                                             <Button 
-                                                className="group/btn bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                                                className="bg-green-600 hover:bg-green-700 text-white"
                                                 onClick={() => window.open(project.link, '_blank')}
                                             >
-                                                <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
+                                                <ExternalLink className="w-4 h-4 mr-2" />
                                                 View Project
                                             </Button>
                                             <Button
-                                                variant="ghost"
-                                                className="text-white hover:bg-white/10 border border-white/30 hover:border-white/50 hover:scale-105 transition-all duration-300"
+                                                variant="outline"
+                                                className="text-white border-white/30 hover:bg-white/10"
                                                 onClick={() => window.open(project.github, '_blank')}
-                                                aria-label="View on GitHub"
                                             >
-                                                <Github className="w-5 h-5" />
+                                                <Github className="w-4 h-4 mr-2" />
+                                                Code
                                             </Button>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Image Side */}
-                                    <div className="flex-1 flex items-center justify-center w-full lg:w-auto p-8 lg:p-12">
-                                        <div className="relative group/image">
-                                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl group-hover/image:blur-2xl transition-all duration-500 opacity-50 group-hover/image:opacity-75"></div>
-                                            <div className="relative bg-zinc-900/90 backdrop-blur-sm rounded-2xl p-6 border border-white/10 group-hover/image:border-white/20 transition-all duration-500 hover:scale-105">
-                                                <img 
-                                                    src={project.image} 
-                                                    alt={project.title}
-                                                    className="max-h-64 max-w-full object-contain rounded-lg shadow-2xl transition-transform duration-500 group-hover/image:scale-105"
-                                                    loading="lazy"
-                                                    onError={(e) => {
-                                                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzIyMjIyMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Qcm9qZWN0IEltYWdlPC90ZXh0Pjwvc3ZnPg==';
-                                                    }}
-                                                />
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -135,7 +119,7 @@ export default function Projects() {
                     <p className="text-gray-400 mb-4">Want to see more of my work?</p>
                     <Button 
                         variant="outline" 
-                        className="border-white/30 text-white hover:bg-white/10 hover:border-white/50"
+                        className="border-white/30 text-white hover:bg-white/10"
                         onClick={() => window.open('https://github.com/nielderto', '_blank')}
                     >
                         <Github className="w-4 h-4 mr-2" />
