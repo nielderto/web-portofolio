@@ -20,7 +20,7 @@ export default function HeroSection() {
           blending code, design, and creativity to make the web a more beautiful
           place.
         </p>
-        <a href="/resume.pdf" 
+        <a href="/resume(new).pdf" 
         download
         className="inline-block">
         <ShimmerButton>

@@ -114,10 +114,10 @@ export default function Contact() {
             <div className="w-full max-w-md">
                 {/* Title */}
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+                    <h1 className="text-5xl font-bold mb-8">
                         Get In Touch
                     </h1>
-                    <p className="text-xl text-gray-300">
+                    <p className="text-xl">
                         Let's discuss your project and bring your ideas to life.
                     </p>
                 </div>

@@ -25,10 +25,10 @@ const projects = [
         title: "LinkFi",
         description: "LinkFi is a payment similar to stripe but built with cross-chain blockchain payments, it has a few features that enable users to pay cross-chain aslong as it is EVM supported.",
         image: "linkfi.png",
-        link: "https://https://github.com/FOwen123/Chromion-2025.com",
-        github: "https://github.com/FOwen123/Chromion-2025.com",
+        link: "https://github.com/FOwen123/Chromion-2025",
+        github: "https://github.com/FOwen123/Chromion-2025",
         year: "2025",
-        status: "Live"
+        status: "Demo"
     }
 ]
 
@@ -90,14 +90,18 @@ export default function Projects() {
                                             {project.description}
                                         </p>
 
-                                        <div className="flex gap-3">
-                                            <Button 
-                                                className="bg-green-600 hover:bg-green-700 text-white"
-                                                onClick={() => window.open(project.link, '_blank')}
-                                            >
-                                                <ExternalLink className="w-4 h-4 mr-2" />
-                                                View Project
-                                            </Button>
+                                                                <div className="flex gap-3">
+                            <Button 
+                                className={`${
+                                    project.status === 'Live' 
+                                        ? 'bg-green-600 hover:bg-green-700' 
+                                        : 'bg-blue-600 hover:bg-blue-700'
+                                } text-white`}
+                                onClick={() => window.open(project.link, '_blank')}
+                            >
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                View Project
+                            </Button>
                                             <Button
                                                 variant="outline"
                                                 className="text-white border-white/30 hover:bg-white/10"

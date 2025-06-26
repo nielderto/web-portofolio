@@ -15,7 +15,7 @@ const experiences = [
     description: "A stripe kinda payment but built with cross-chain blockchain payments. ",
     contribution: "Designed and built the entire frontend user interface with React and Tailwind CSS, focusing on creating an intuitive payment flow that abstracts away blockchain complexity. Implemented dynamic routing with Tanstack Router for seamless navigation between payment steps. Built comprehensive analytics dashboard using Chart.js to display transaction metrics and user engagement data. Integrated Thirdweb SDK for cross-chain wallet connections and payment processing, ensuring compatibility across multiple blockchain networks. Managed complex application state with Zustand to handle user sessions, transaction status, and real-time payment updates.",
     technologies: ["React", "Tanstack Router", "Supabase", "Chart.js", "React Query", "React Hook Form", "Zustand", "Tailwind CSS", "Thirdweb"],
-    links: "https://https://github.com/FOwen123/Chromion-2025.com"
+    links: "https://github.com/FOwen123/Chromion-2025"
   },
   {
     date: "2025",
