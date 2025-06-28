@@ -111,59 +111,59 @@ export default function Contact() {
 
     return (
         <section id="contact" className="min-h-screen flex flex-col justify-center items-center py-20 px-6">
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-4xl">
                 {/* Title */}
                 <div className="text-center mb-12">
                     <h1 className="text-5xl font-bold mb-8">
-                        Get In Touch
+                        Contact Me
                     </h1>
-                    <p className="text-xl">
-                        Let's discuss your project and bring your ideas to life.
-                    </p>
                 </div>
                 
                 {/* Contact Form */}
-                <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-8">
+                <div className="rounded-xl p-8 max-w-2xl mx-auto">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-white font-medium">Name</FormLabel>
-                                        <FormControl>
-                                            <Input 
-                                                placeholder="Your Name" 
-                                                {...field} 
-                                                className="bg-zinc-800/80 text-white border-white/20 focus:border-blue-400 hover:border-white/30 transition-all duration-300"
-                                                disabled={formStatus === 'loading'}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            
-                            <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-white font-medium">Email</FormLabel>
-                                        <FormControl>
-                                            <Input 
-                                                placeholder="your.email@example.com" 
-                                                type="email" 
-                                                {...field} 
-                                                className="bg-zinc-800/80 text-white border-white/20 focus:border-blue-400 hover:border-white/30 transition-all duration-300"
-                                                disabled={formStatus === 'loading'}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                            {/* Name and Email in one row */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <FormField
+                                    control={form.control}
+                                    name="name"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="text-white font-medium">Name</FormLabel>
+                                            <FormControl>
+                                                <Input 
+                                                    placeholder="Your Name" 
+                                                    {...field} 
+                                                    className="bg-zinc-800/80 text-white border-white/20 focus:border-blue-400 hover:border-white/30 transition-all duration-300"
+                                                    disabled={formStatus === 'loading'}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="text-white font-medium">Email</FormLabel>
+                                            <FormControl>
+                                                <Input 
+                                                    placeholder="your.email@example.com" 
+                                                    type="email" 
+                                                    {...field} 
+                                                    className="bg-zinc-800/80 text-white border-white/20 focus:border-blue-400 hover:border-white/30 transition-all duration-300"
+                                                    disabled={formStatus === 'loading'}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
                             
                             <FormField
                                 control={form.control}
@@ -173,7 +173,7 @@ export default function Contact() {
                                         <FormLabel className="text-white font-medium">Message</FormLabel>
                                         <FormControl>
                                             <Textarea 
-                                                placeholder="Tell me about your project..." 
+                                                placeholder="Leave a feedback about the site, career opportunities, or anything else!" 
                                                 {...field} 
                                                 className="bg-zinc-800/80 text-white border-white/20 focus:border-blue-400 hover:border-white/30 transition-all duration-300 min-h-[120px] resize-none"
                                                 disabled={formStatus === 'loading'}

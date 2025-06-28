@@ -13,7 +13,7 @@ const experiences = [
     hackathon: "Chromion ",
     projectName: "LinkFi",
     description: "A stripe kinda payment but built with cross-chain blockchain payments. ",
-    contribution: "Designed and built the entire frontend user interface with React and Tailwind CSS, focusing on creating an intuitive payment flow that abstracts away blockchain complexity. Implemented dynamic routing with Tanstack Router for seamless navigation between payment steps. Built comprehensive analytics dashboard using Chart.js to display transaction metrics and user engagement data. Integrated Thirdweb SDK for cross-chain wallet connections and payment processing, ensuring compatibility across multiple blockchain networks. Managed complex application state with Zustand to handle user sessions, transaction status, and real-time payment updates.",
+    contribution: "• Built the entire frontend with Tanstack Router, Tailwind for the styling, Shadcn for the components\n• Created intuitive payment flows and analytics dashboard with Chart.js\n• Integrated Thirdweb SDK for cross-chain wallet connections\n• Used Supabase for the database",
     technologies: ["React", "Tanstack Router", "Supabase", "Chart.js", "React Query", "React Hook Form", "Zustand", "Tailwind CSS", "Thirdweb"],
     links: "https://github.com/FOwen123/Chromion-2025"
   },
@@ -22,7 +22,7 @@ const experiences = [
     hackathon: "Lisk Builders Challenge",
     projectName: "OnPay",
     description: "A decentralized payment solution enabling seamless transactions with ENS integration for user-friendly addresses.",
-    contribution: "Developed a fully responsive web application using Next.js with mobile-first design principles, ensuring optimal user experience across all devices. Created dynamic form handling with React Hook Form and Zod validation for secure payment input processing. Implemented ENS name resolution and wallet integration using Xellarkit, allowing users to send payments using human-readable addresses instead of complex wallet addresses. Built real-time transaction tracking with React Query for instant payment status updates. Designed and coded all UI components with Tailwind CSS, creating a clean, modern interface that makes decentralized payments feel as simple as traditional payment apps.",
+    contribution: "• Developed responsive web app with Next.js\n• Built form handling with React Hook Form & Zod validation\n• Implemented ENS integration with Xellarkit for human-readable addresses\n• Added real-time transaction tracking",
     technologies: ["Next.js", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "Xellarkit"],
     links: "https://devfolio.co/projects/onpay-8f52",
   },
@@ -31,7 +31,7 @@ const experiences = [
     hackathon: "ETHGlobal Taipei",
     projectName: "Betcha",
     description: "A platform where users can bet on with their friends on who can complete the bet",
-    contribution: "Led frontend development for a social betting platform, architecting the React application structure and component hierarchy. Integrated RainbowKit for seamless multi-wallet connectivity, supporting MetaMask, WalletConnect, and other popular wallets. Built interactive bet creation forms using React Hook Form with comprehensive Zod validation to ensure data integrity for bet parameters and user inputs. Developed real-time bet tracking and friend invitation systems using React Query for efficient data fetching and caching. Created engaging UI animations and responsive design with Tailwind CSS to make the betting experience fun and engaging. Handled complex state management for active bets, user profiles, and friend connections across the entire application.",
+    contribution: "• Led frontend development with React\n• Integrated RainbowKit for multi-wallet connectivity\n• Built bet creation forms with React Hook Form & Zod validation\n• Implemented real-time tracking with React Query",
     technologies: ["React", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "RainbowKit"],
     links: "https://ethglobal.com/showcase/betcha-ax3oe"
   },
@@ -40,7 +40,7 @@ const experiences = [
     hackathon: "Taipei Blockchain Week Hackathon",
     projectName: "Daolingo",
     description: "Developed a blockchain-based solution addressing real-world problems in the Taiwanese ecosystem.",
-    contribution: "Developed a gamified blockchain education platform, building the core user interface with React and implementing smart contract interactions for reward distribution and progress tracking. Created comprehensive user onboarding flows using React Hook Form with Zod validation to ensure proper user registration and profile setup. Integrated RainbowKit for wallet connectivity, enabling users to earn and claim blockchain-based rewards for completing educational modules. Built dynamic progress tracking and leaderboard systems using React Query for real-time updates of user achievements and community rankings. Designed responsive educational content layouts with Tailwind CSS, making blockchain concepts accessible and engaging for Taiwanese users. Handled complex state management for user progress, earned tokens, and educational content across multiple learning paths.",
+    contribution: "• Built gamified blockchain education platform with React\n• Implemented smart contract interactions for rewards\n• Created user onboarding with React Hook Form & Zod\n• Integrated RainbowKit for wallet connectivity",
     technologies: ["Blockchain", "Smart Contracts", "JavaScript", "React", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "RainbowKit"],
     links: "https://dorahacks.io/buidl/20802",
   },
@@ -50,7 +50,7 @@ export default function Experience() {
   return (
     <section id="experience" className="flex flex-col justify-center items-center min-h-screen pb-20 px-6">
       <h2 className="text-4xl font-bold text-center mb-12 text-white">
-        Hackathon Projects
+        Hackathons
       </h2>
       <div className="w-full max-w-4xl">
         <Timeline positions="left" className="relative">
@@ -78,23 +78,12 @@ export default function Experience() {
                 <div className="mb-4">
                   <h4 className="text-white font-semibold mb-2 text-lg">What I Did:</h4>
                   <p className="text-gray-300 leading-relaxed text-base">
-                    {exp.contribution}
+                  {exp.contribution.split('\n').map((line, index) => (
+                    <p key={index} className="text-gray-300 leading-relaxed text-base">
+                      {line}
+                    </p>
+                  ))}
                   </p>
-                </div>
-
-                {/* Technologies */}
-                <div className="mb-4">
-                  <h4 className="text-white font-semibold mb-3">Technologies Used:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.technologies.map((tech, techIdx) => (
-                      <span 
-                        key={techIdx}
-                        className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm font-medium border border-blue-500/30"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
                 </div>
 
                 {/* Link */}

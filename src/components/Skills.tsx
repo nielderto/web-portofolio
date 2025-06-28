@@ -16,6 +16,7 @@ export default function Skills() {
         <Badge className="text-sm md:text-base px-3 py-1">Python</Badge>
         <Badge className="text-sm md:text-base px-3 py-1">Vite</Badge>
         <Badge className="text-sm md:text-base px-3 py-1">Docker</Badge>
+        <Badge className="text-sm md:text-base px-3 py-1">ExpressJS</Badge>
       </div>
     </div>
   );

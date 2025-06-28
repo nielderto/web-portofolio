@@ -11,14 +11,12 @@ export default function HeroSection() {
           alt="Neil, a passionate web developer and university student from Taiwan"
           className="w-32 h-32 rounded-full border-4 border-zinc-800 shadow-2xl"
         />
-        <div className="flex flex-col gap-2 justify-center items-center text-center">
-          <h2 className="text-4xl md:text-5xl font-bold">Otneil (neil for short)</h2>
+                    <div className="flex flex-col gap-2 justify-center items-center text-center">
+          <h2 className="text-4xl md:text-5xl font-bold">Hey, Neil here! <span className="wave-emoji">👋</span></h2>
         </div>
         <p className="text-slate-300 text-center text-base md:text-lg">
-          Passionate about turning ideas into interactive digital experiences.
-          I'm a university student building the future one pixel at a time
-          blending code, design, and creativity to make the web a more beautiful
-          place.
+          Computer Science student at Asia University, Taiwan. 
+          Building modern web apps and exploring blockchain technology.
         </p>
         <a href="/resume(new).pdf" 
         download

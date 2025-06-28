@@ -129,6 +129,7 @@ code {
   --color-sidebar-ring: var(--sidebar-ring);
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  --animate-wave: wave 2s ease-in-out infinite;
   @keyframes shimmer-slide {
   to {
     transform: translate(calc(100cqw - 100%), 0);
@@ -148,6 +149,26 @@ code {
     transform: translateZ(0) rotate(360deg);
     }
   }
+  @keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+}
 }
 
 @layer base {
@@ -156,5 +177,23 @@ code {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-wave {
+    animation: wave 2s ease-in-out infinite;
+    transform-origin: 70% 70%;
+    display: inline-block;
+  }
+  
+  .wave-emoji {
+    display: inline-block;
+    transform-origin: 70% 70%;
+    transition: transform 0.3s ease;
+  }
+  
+  .wave-emoji:hover {
+    animation: wave 2s ease-in-out infinite;
   }
 }

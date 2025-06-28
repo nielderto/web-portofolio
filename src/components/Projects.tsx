@@ -8,9 +8,11 @@ const projects = [
         description: "OnPay is a seamless, gas-free payment app designed to simplify transactions for everyone. Built with a clean, user-friendly interface, OnPay bridges the gap between Web2 and Web3, making it easy for anyone to send and receive payments using IDRX.",
         image: "onpay.png",
         link: "https://onpay-seamless.vercel.app/",
+        demo: "https://youtu.be/aYsm5ScMwxs?si=FpaMHjMAfNLvRx0B", 
         github: "https://github.com/nielderto/OnPay",
         year: "2025",
-        status: "Live"
+        status: "Live",
+        technologies: ["Next.js", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "Xellarkit"]
     },
     {
         title: "Betcha",
@@ -19,16 +21,18 @@ const projects = [
         link: "https://youtu.be/rKsd3i3iVhM?si=Tk4MFg0LM2zdAzZ_",
         github: "https://github.com/FOwen123/ETHGlobalTaipei2025",
         year: "2025",
-        status: "Demo"
+        status: "Demo",
+        technologies: ["React", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "RainbowKit"]
     },
     {
         title: "LinkFi",
         description: "LinkFi is a payment similar to stripe but built with cross-chain blockchain payments, it has a few features that enable users to pay cross-chain aslong as it is EVM supported.",
         image: "linkfi.png",
-        link: "https://github.com/FOwen123/Chromion-2025",
+        link: "https://www.youtube.com/watch?v=hZikjbj44sM",
         github: "https://github.com/FOwen123/Chromion-2025",
         year: "2025",
-        status: "Demo"
+        status: "Demo",
+        technologies: ["React", "Tanstack Router", "Supabase", "Chart.js", "React Query", "React Hook Form", "Zustand", "Tailwind CSS", "Thirdweb"]
     }
 ]
 
@@ -90,26 +94,66 @@ export default function Projects() {
                                             {project.description}
                                         </p>
 
-                                                                <div className="flex gap-3">
-                            <Button 
-                                className={`${
-                                    project.status === 'Live' 
-                                        ? 'bg-green-600 hover:bg-green-700' 
-                                        : 'bg-blue-600 hover:bg-blue-700'
-                                } text-white`}
-                                onClick={() => window.open(project.link, '_blank')}
-                            >
-                                <ExternalLink className="w-4 h-4 mr-2" />
-                                View Project
-                            </Button>
-                                            <Button
-                                                variant="outline"
-                                                className="text-white border-white/30 hover:bg-white/10"
-                                                onClick={() => window.open(project.github, '_blank')}
-                                            >
-                                                <Github className="w-4 h-4 mr-2" />
-                                                Code
-                                            </Button>
+                                        {/* Technologies Used */}
+                                        <div className="mb-6">
+                                            <h4 className="text-white font-semibold mb-3">Technologies Used:</h4>
+                                            <div className="flex flex-wrap gap-2">
+                                                {project.technologies.map((tech, techIdx) => (
+                                                    <span 
+                                                        key={techIdx}
+                                                        className="px-3 py-1 bg-gray-500/20 text-gray-300 rounded-full text-sm font-medium border border-gray-500/30"
+                                                    >
+                                                        {tech}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="flex gap-3 flex-wrap">
+                                            {project.status === 'Live' ? (
+                                                // Live project buttons: Live Site + Demo + Code
+                                                <>
+                                                    <Button 
+                                                        className="bg-white hover:bg-gray-200 text-black"
+                                                        onClick={() => window.open(project.link, '_blank')}
+                                                    >
+                                                        <ExternalLink className="w-4 h-4 mr-2" />
+                                                        Live Site
+                                                    </Button>
+                                                    <Button 
+                                                        className="bg-white hover:bg-gray-200 text-black"
+                                                        onClick={() => window.open(project.demo, '_blank')}
+                                                    >
+                                                        <ExternalLink className="w-4 h-4 mr-2" />
+                                                        Demo
+                                                    </Button>
+                                                    <Button
+                                                        className="bg-white hover:bg-gray-200 text-black"
+                                                        onClick={() => window.open(project.github, '_blank')}
+                                                    >
+                                                        <Github className="w-4 h-4 mr-2" />
+                                                        Code
+                                                    </Button>
+                                                </>
+                                            ) : (
+                                                // Demo project buttons: Demo + Code
+                                                <>
+                                                    <Button 
+                                                        className="bg-white hover:bg-gray-200 text-black"
+                                                        onClick={() => window.open(project.link, '_blank')}
+                                                    >
+                                                        <ExternalLink className="w-4 h-4 mr-2" />
+                                                        Demo
+                                                    </Button>
+                                                    <Button
+                                                        className="bg-white hover:bg-gray-200 text-black"
+                                                        onClick={() => window.open(project.github, '_blank')}
+                                                    >
+                                                        <Github className="w-4 h-4 mr-2" />
+                                                        Code
+                                                    </Button>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -122,8 +166,7 @@ export default function Projects() {
                 <div className="text-center mt-16">
                     <p className="text-gray-400 mb-4">Want to see more of my work?</p>
                     <Button 
-                        variant="outline" 
-                        className="border-white/30 text-white hover:bg-white/10"
+                        className="bg-white hover:bg-gray-200 text-black"
                         onClick={() => window.open('https://github.com/nielderto', '_blank')}
                     >
                         <Github className="w-4 h-4 mr-2" />
