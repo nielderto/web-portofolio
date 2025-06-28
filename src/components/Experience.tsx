@@ -11,16 +11,14 @@ const experiences = [
   {
     date: "2025",
     hackathon: "Chromion ",
-    projectName: "LinkFi",
     description: "A stripe kinda payment but built with cross-chain blockchain payments. ",
     contribution: "• Built the entire frontend with Tanstack Router, Tailwind for the styling, Shadcn for the components\n• Created intuitive payment flows and analytics dashboard with Chart.js\n• Integrated Thirdweb SDK for cross-chain wallet connections\n• Used Supabase for the database",
     technologies: ["React", "Tanstack Router", "Supabase", "Chart.js", "React Query", "React Hook Form", "Zustand", "Tailwind CSS", "Thirdweb"],
-    links: "https://github.com/FOwen123/Chromion-2025"
+    links: "https://devfolio.co/projects/linkfi-d2c9"
   },
   {
     date: "2025",
     hackathon: "Lisk Builders Challenge",
-    projectName: "OnPay",
     description: "A decentralized payment solution enabling seamless transactions with ENS integration for user-friendly addresses.",
     contribution: "• Developed responsive web app with Next.js\n• Built form handling with React Hook Form & Zod validation\n• Implemented ENS integration with Xellarkit for human-readable addresses\n• Added real-time transaction tracking",
     technologies: ["Next.js", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "Xellarkit"],
@@ -29,7 +27,6 @@ const experiences = [
   {
     date: "2025",
     hackathon: "ETHGlobal Taipei",
-    projectName: "Betcha",
     description: "A platform where users can bet on with their friends on who can complete the bet",
     contribution: "• Led frontend development with React\n• Integrated RainbowKit for multi-wallet connectivity\n• Built bet creation forms with React Hook Form & Zod validation\n• Implemented real-time tracking with React Query",
     technologies: ["React", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "RainbowKit"],
@@ -38,7 +35,6 @@ const experiences = [
   {
     date: "2024",
     hackathon: "Taipei Blockchain Week Hackathon",
-    projectName: "Daolingo",
     description: "Developed a blockchain-based solution addressing real-world problems in the Taiwanese ecosystem.",
     contribution: "• Built gamified blockchain education platform with React\n• Implemented smart contract interactions for rewards\n• Created user onboarding with React Hook Form & Zod\n• Integrated RainbowKit for wallet connectivity",
     technologies: ["Blockchain", "Smart Contracts", "JavaScript", "React", "Tailwind CSS", "React Hook Form", "React Query", "Zod", "RainbowKit"],
@@ -61,22 +57,16 @@ export default function Experience() {
                 variant="primary"
                 className="text-white text-2xl font-bold"
               >
-                {exp.projectName}
+                {exp.hackathon}
               </TimelineHeading>
               <TimelineDot status="done" className="bg-blue-500 border-blue-500" />
               <TimelineContent side="right" className="text-gray-300">
-                {/* Hackathon Info */}
-                <div className="mb-4 pb-3 border-b border-gray-600">
-                  <p className="text-blue-400 font-medium text-lg">
-                    {exp.hackathon}
-                  </p>
-                  <p className="text-gray-400 text-sm">
-                    {exp.date}
-                  </p>
-                </div>
+                
+                <div className="mb-4 border-b border-gray-600 mt-4"></div>
+        
                 {/* What I Did */}
                 <div className="mb-4">
-                  <h4 className="text-white font-semibold mb-2 text-lg">What I Did:</h4>
+                  <h4 className="text-white font-semibold mb-2 text-lg">Contributions:</h4>
                   <p className="text-gray-300 leading-relaxed text-base">
                   {exp.contribution.split('\n').map((line, index) => (
                     <p key={index} className="text-gray-300 leading-relaxed text-base">
@@ -85,8 +75,8 @@ export default function Experience() {
                   ))}
                   </p>
                 </div>
-
-                {/* Link */}
+ 
+               {/* Link */}
                 <a 
                   href={exp.links}
                   target="_blank"
