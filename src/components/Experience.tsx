@@ -48,7 +48,7 @@ export default function Experience() {
       <h2 className="text-4xl font-bold text-center mb-12 text-white">
         Hackathons
       </h2>
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-2xl">
         <Timeline positions="left" className="relative">
           {experiences.map((exp, idx) => (
             <TimelineItem key={idx} status="done">

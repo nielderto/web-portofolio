@@ -120,7 +120,7 @@ export default function Contact() {
                 </div>
                 
                 {/* Contact Form */}
-                <div className="rounded-xl p-8 max-w-2xl mx-auto">
+                <div className="rounded-xl p-8 max-w-4xl mx-auto">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                             {/* Name and Email in one row */}
