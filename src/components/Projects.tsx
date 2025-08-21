@@ -43,7 +43,7 @@ export default function Projects() {
         <section id="projects" className="py-12 px-4">
             <div className="w-full max-w-sm sm:max-w-2xl lg:max-w-3xl mx-auto">
                 <div className="text-center mb-8">
-                    <h2 className="text-2xl md:text-3xl font-bold">
+                    <h2 className="text-4xl md:text-3xl font-bold">
                         featured projects
                     </h2>
                 </div>

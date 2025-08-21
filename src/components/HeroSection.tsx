@@ -15,8 +15,8 @@ export default function HeroSection() {
           <h2 className="text-4xl md:text-5xl font-bold">Hey, Neil here! <span className="wave-emoji">👋</span></h2>
         </div>
         <p className="text-slate-300 text-center text-base md:text-lg">
-          Computer Science student at Asia University, Taiwan. 
-          Building modern web apps and exploring blockchain technology.
+          aspiring frontend developer,  
+          building modern web apps and exploring blockchain technology.
         </p>
         <a href="/resume(new).pdf" 
         download

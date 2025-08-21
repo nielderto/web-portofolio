@@ -46,7 +46,7 @@ export default function Experience() {
   return (
     <section id="experience" className="flex flex-col justify-center items-center min-h-screen pb-20 px-6">
       <h2 className="text-4xl font-bold text-center mb-12 text-white">
-        Hackathons
+        hackathons
       </h2>
       <div className="w-full max-w-2xl">
         <Timeline positions="left" className="relative">
