@@ -18,7 +18,7 @@ export default function HeroSection() {
           aspiring frontend developer,  
           building modern web apps and exploring blockchain technology.
         </p>
-        <a href="/resume(new).pdf" 
+        <a href="/resume (1).pdf" 
         download
         className="inline-block">
         <ShimmerButton>

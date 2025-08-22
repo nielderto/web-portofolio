@@ -13,10 +13,13 @@ export default function Skills() {
         <Badge className="text-sm md:text-base px-3 py-1">Next.js</Badge>
         <Badge className="text-sm md:text-base px-3 py-1">Tailwind CSS</Badge>
         <Badge className="text-sm md:text-base px-3 py-1">Git</Badge>
-        <Badge className="text-sm md:text-base px-3 py-1">Python</Badge>
         <Badge className="text-sm md:text-base px-3 py-1">Vite</Badge>
-        <Badge className="text-sm md:text-base px-3 py-1">Docker</Badge>
-        <Badge className="text-sm md:text-base px-3 py-1">ExpressJS</Badge>
+        <Badge className="text-sm md:text-base px-3 py-1">Shadcn</Badge>
+        <Badge className="text-sm md:text-base px-3 py-1">Zustand</Badge>
+        <Badge className="text-sm md:text-base px-3 py-1">React Query</Badge>
+        <Badge className="text-sm md:text-base px-3 py-1">Tanstack Router</Badge>
+        <Badge className="text-sm md:text-base px-3 py-1">Supabase</Badge>
+        <Badge className="text-sm md:text-base px-3 py-1">Vercel</Badge>
       </div>
     </div>
   );
