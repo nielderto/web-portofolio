@@ -31,7 +31,7 @@ const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
-    <div className='bg-[#121212] text-[#EDEDED]'>
+    <div className='bg-[#121212] text-[#EDEDED] tracking-tight'>
     <StrictMode>
           <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <RouterProvider router={router} />
