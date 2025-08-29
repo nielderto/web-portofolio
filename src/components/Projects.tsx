@@ -44,11 +44,11 @@ export default function Projects() {
             <div className="w-full max-w-sm sm:max-w-2xl lg:max-w-3xl mx-auto">
                 <div className="text-center mb-8">
                     <h2 className="text-4xl md:text-3xl font-bold">
-                        featured projects
+                        Projects
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
                     {projects.map((project) => (
                         <div
                             key={project.id}

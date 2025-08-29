@@ -61,9 +61,9 @@ function App() {
   return (
     <>
       <HeroSection />
-      <Skills />
-      <Experience />
       <Projects />
+      <Experience />
+      <Skills />
       <Contact />
     </>
   )
