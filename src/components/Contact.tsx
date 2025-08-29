@@ -111,7 +111,7 @@ export default function Contact() {
 
     return (
         <section id="contact" className="min-h-screen flex flex-col justify-center items-center py-20 px-6">
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-2xl">
                 {/* Title */}
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-bold mb-8">

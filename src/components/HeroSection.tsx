@@ -4,7 +4,7 @@ import { FilePdf } from "phosphor-react";
 export default function HeroSection() {
   return (
     <section id="about" className="flex flex-col justify-center items-center min-h-screen py-8">
-      <div className="flex flex-col justify-center items-start gap-4 w-full max-w-lg px-4">
+      <div className="flex flex-col justify-center items-start gap-4 w-full max-w-2xl px-4">
         <div className="flex flex-row gap-4 items-center w-full">
           <img
             src={`/avatar2.jpeg`}

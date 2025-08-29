@@ -40,8 +40,8 @@ const projects = [
 
 export default function Projects() {
     return (
-        <section id="projects" className="py-12 px-4">
-            <div className="w-full max-w-sm sm:max-w-2xl lg:max-w-3xl mx-auto">
+        <section id="projects" className="py-12 px-4 mb-20 pb-2o">
+            <div className="w-full max-w-2xl mx-auto">
                 <div className="text-center mb-8">
                     <h2 className="text-4xl md:text-3xl font-bold">
                         Projects
