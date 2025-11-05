@@ -34,28 +34,31 @@ export default function HeroSection() {
             href="https://github.com/nielderto"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-white transition-transform duration-200 hover:scale-110"
+            className="p-2 px-4 rounded-3xl bg-white text-black flex flex-row items-center gap-2"
             aria-label="Visit Neil's GitHub profile"
           >
-            <GithubLogo size={24} weight="bold" />
+            <GithubLogo size={24} weight="bold" className="text-black" />
+            Github
           </a>
           <a
             href="https://www.linkedin.com/in/nielderto"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-white transition-transform duration-200 hover:scale-110"
+            className="p-2 px-4 rounded-3xl bg-white text-black flex flex-row items-center gap-2"
             aria-label="Visit Neil's LinkedIn profile"
           >
-            <LinkedinLogo size={24} weight="bold" />
+            <LinkedinLogo size={24} weight="bold" className="text-black" />
+            LinkedIn
           </a>
           <a
             href="/resume (1).pdf"
             rel="noopener noreferrer"
             target="_blank"
-            className="text-white hover:text-white transition-transform duration-200 hover:scale-110"
+            className="p-2 px-4 rounded-3xl bg-white text-black flex flex-row items-center gap-2"
             aria-label="Visit Neil's Twitter profile"
           >
-            <FilePdf size={24} weight="bold" />
+            <FilePdf size={24} weight="bold" className="text-black" />
+            Resume
           </a>
         </div>
       </div>
