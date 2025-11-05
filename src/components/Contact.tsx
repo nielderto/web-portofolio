@@ -113,14 +113,14 @@ export default function Contact() {
         <section id="contact" className="min-h-screen flex flex-col justify-center items-center py-20 px-6">
             <div className="w-full max-w-2xl">
                 {/* Title */}
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl font-bold mb-8">
-                        Contact Me
-                    </h1>
+                <div className="flex justify-center mb-12">
+                    <h2 className="text-3xl font-bold font-jetbrains-mono text-gray-300 inline-block relative">
+                        FEEDBACK & OPPORTUNITIES
+                    </h2>
                 </div>
                 
                 {/* Contact Form */}
-                <div className="rounded-xl p-8 max-w-4xl mx-auto">
+                <div className="rounded-xl p-8 w-full">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                             {/* Name and Email in one row */}

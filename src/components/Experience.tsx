@@ -45,10 +45,11 @@ const experiences = [
 export default function Experience() {
   return (
     <section id="experience" className="flex flex-col justify-center items-center min-h-screen pb-20 px-6">
-      <h2 className="text-4xl font-bold text-center mb-12 text-white">
-        Hackathons
-      </h2>
       <div className="w-full max-w-2xl">
+        <h2 className="text-3xl font-bold font-jetbrains-mono text-gray-300 inline-block relative mb-12">
+          HACKATHONS
+          <span className="absolute left-0 bottom-0 h-[1px] bg-gray-400 w-[120%]"></span>
+        </h2>
         <Timeline positions="left" className="relative">
           {experiences.map((exp, idx) => (
             <TimelineItem key={idx} status="done">
@@ -67,13 +68,13 @@ export default function Experience() {
                 {/* What I Did */}
                 <div className="mb-4">
                   <h4 className="text-white font-semibold mb-2 text-lg">Contributions:</h4>
-                  <p className="text-gray-300 leading-relaxed text-base">
-                  {exp.contribution.split('\n').map((line, index) => (
-                    <p key={index} className="text-gray-300 leading-relaxed text-base">
-                      {line}
-                    </p>
-                  ))}
-                  </p>
+                  <div className="text-gray-300 leading-relaxed text-base">
+                    {exp.contribution.split('\n').map((line, index) => (
+                      <p key={index} className="text-gray-300 leading-relaxed text-base">
+                        {line}
+                      </p>
+                    ))}
+                  </div>
                 </div>
  
                {/* Link */}
