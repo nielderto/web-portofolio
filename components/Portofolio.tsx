@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -26,6 +27,12 @@ const staggerContainer = {
       staggerChildren: 0.1,
     },
   },
+};
+
+// Country flags mapping (emoji)
+const countryFlags: Record<string, string> = {
+  "Indonesian": "🇮🇩",
+  "Taiwan": "🇹🇼",
 };
 
 // Tech logos mapping for reuse
@@ -164,6 +171,156 @@ function SmallTechLogo({ name }: { name: string }) {
   );
 }
 
+function AnimatedTechText({ 
+  name, 
+  forwardDelay,
+  reverseDelay,
+}: { 
+  name: string; 
+  forwardDelay: number;
+  reverseDelay: number;
+}) {
+  const tech = techLogos[name];
+  if (!tech) return <span>{name}</span>;
+  
+  // Total animation duration for the sequence
+  const totalDuration = 5;
+  
+  // Convert delays to percentages of total duration (0.12 = smoother transition)
+  const forwardStart = forwardDelay / totalDuration;
+  const forwardEnd = forwardStart + 0.12;
+  const reverseStart = reverseDelay / totalDuration;
+  const reverseEnd = reverseStart + 0.12;
+  
+  const textOpacity = [1, 1, 0, 0, 1, 1];
+  const logoOpacity = [0, 0, 1, 1, 0, 0];
+  const logoScale = [0.8, 0.8, 1, 1, 0.8, 0.8];
+  const times = [0, forwardStart, forwardEnd, reverseStart, reverseEnd, 1];
+  
+  return (
+    <motion.span 
+      className="relative inline-grid place-items-center"
+      style={{ gridTemplateAreas: "'stack'" }}
+    >
+      {/* Text - fades out when logo appears */}
+      <motion.span
+        className="text-foreground font-medium"
+        style={{ gridArea: "stack" }}
+        initial={{ opacity: 1 }}
+        whileInView={{
+          opacity: textOpacity,
+        }}
+        viewport={{ once: true }}
+        transition={{
+          duration: totalDuration,
+          delay: 3,
+          times: times,
+          ease: "easeInOut",
+        }}
+      >
+        {name}
+      </motion.span>
+      {/* Logo - stacked on same grid area */}
+      <motion.span
+        className="flex items-center justify-center"
+        style={{ gridArea: "stack" }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{
+          opacity: logoOpacity,
+          scale: logoScale,
+        }}
+        viewport={{ once: true }}
+        transition={{
+          duration: totalDuration,
+          delay: 3,
+          times: times,
+          ease: "easeInOut",
+        }}
+      >
+        <Image
+          src={tech.logo}
+          alt={name}
+          width={22}
+          height={22}
+          className={cn("object-contain", tech.invert && "invert")}
+        />
+      </motion.span>
+    </motion.span>
+  );
+}
+
+function AnimatedFlagText({ 
+  name, 
+  forwardDelay,
+  reverseDelay,
+}: { 
+  name: string; 
+  forwardDelay: number;
+  reverseDelay: number;
+}) {
+  const flag = countryFlags[name];
+  if (!flag) return <span>{name}</span>;
+  
+  // Total animation duration for the sequence
+  const totalDuration = 4;
+  
+  // Convert delays to percentages of total duration (0.12 = smoother transition)
+  const forwardStart = forwardDelay / totalDuration;
+  const forwardEnd = forwardStart + 0.12;
+  const reverseStart = reverseDelay / totalDuration;
+  const reverseEnd = reverseStart + 0.12;
+  
+  const textOpacity = [1, 1, 0, 0, 1, 1];
+  const flagOpacity = [0, 0, 1, 1, 0, 0];
+  const flagScale = [0.8, 0.8, 1, 1, 0.8, 0.8];
+  const times = [0, forwardStart, forwardEnd, reverseStart, reverseEnd, 1];
+  
+  return (
+    <motion.span 
+      className="relative inline-grid place-items-center"
+      style={{ gridTemplateAreas: "'stack'" }}
+    >
+      {/* Text - fades out when flag appears */}
+      <motion.span
+        className="text-foreground font-medium"
+        style={{ gridArea: "stack" }}
+        initial={{ opacity: 1 }}
+        whileInView={{
+          opacity: textOpacity,
+        }}
+        viewport={{ once: true }}
+        transition={{
+          duration: totalDuration,
+          delay: 7,
+          times: times,
+          ease: "easeInOut",
+        }}
+      >
+        {name}
+      </motion.span>
+      {/* Flag emoji - stacked on same grid area */}
+      <motion.span
+        className="flex items-center justify-center text-lg"
+        style={{ gridArea: "stack" }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{
+          opacity: flagOpacity,
+          scale: flagScale,
+        }}
+        viewport={{ once: true }}
+        transition={{
+          duration: totalDuration,
+          delay: 7,
+          times: times,
+          ease: "easeInOut",
+        }}
+      >
+        {flag}
+      </motion.span>
+    </motion.span>
+  );
+}
+
 function ExperienceCard({
   experience,
 }: {
@@ -246,6 +403,23 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 }
 
 export default function Portofolio() {
+  const [bibleVerse, setBibleVerse] = useState<{ text: string; bookname: string; chapter: string; verse: string } | null>(null);
+
+  useEffect(() => {
+    const fetchBibleVerse = async () => {
+      try {
+        const response = await fetch("https://labs.bible.org/api/?passage=votd&type=json");
+        const data = await response.json();
+        if (data && data[0]) {
+          setBibleVerse(data[0]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch Bible verse:", error);
+      }
+    };
+    fetchBibleVerse();
+  }, []);
+
   return (
     <main className="container mx-auto px-4 py-12 max-w-2xl mt-20 sm:mt-30">
       {/* Hero Section */}
@@ -263,7 +437,7 @@ export default function Portofolio() {
           Otneil Xander Susanto
         </motion.h1>
         <motion.p className="text-lg" variants={fadeInUp} transition={{ duration: 0.5, delay: 0.1 }}>
-          Frontend Developer Intern at{" "}
+          --&gt; Frontend Developer Intern at{" "}
           <Link href="https://versatile.id" className="underline hover:text-foreground/80">
             Versatile.ID
           </Link>
@@ -313,13 +487,53 @@ export default function Portofolio() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <p>
-            I&apos;m a passionate Frontend Developer currently interning at Versatile.ID, 
-            where I work on building modern web3 apps. I have a strong foundation 
-            in JavaScript, TypeScript, and React ecosystem. Also mastering backend technologies to
+            I&apos;m a passionate Frontend Developer currently interning at{" "}
+            <span className="relative inline-block">
+              <span className="relative z-10 text-foreground font-medium">Versatile.ID</span>
+              <svg
+                className="absolute -inset-x-4 -inset-y-2 w-[calc(100%+32px)] h-[calc(100%+16px)]"
+                viewBox="0 0 120 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+              >
+                <motion.path
+                  d="M10 20C10 12 20 6 60 6C100 6 110 12 110 20C110 28 100 34 60 34C20 34 10 28 10 20"
+                  stroke="#3B82F6"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ 
+                    pathLength: [0, 1, 0],
+                    opacity: [0, 1, 1]
+                  }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 2.4,
+                    delay: 0.5,
+                    ease: "easeInOut",
+                    times: [0, 0.5, 1],
+                  }}
+                  style={{
+                    filter: "url(#crayon-texture)",
+                  }}
+                />
+                <defs>
+                  <filter id="crayon-texture" x="-20%" y="-20%" width="140%" height="140%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G" />
+                  </filter>
+                </defs>
+              </svg>
+            </span>
+            , where I work on building modern web3 apps. I have a strong foundation 
+            in <AnimatedTechText name="JavaScript" forwardDelay={0} reverseDelay={3.5} />, <AnimatedTechText name="TypeScript" forwardDelay={0.5} reverseDelay={3} />, and <AnimatedTechText name="React" forwardDelay={1} reverseDelay={2.5} /> ecosystem. Also mastering backend technologies to
             improve my skills and knowledge and build more complex projects/applications.
           </p>
           <p>
-            For more information about me, I&apos;m a Indonesian student in Asia University located in Taiwan, 
+            For more information about me, I&apos;m a <AnimatedFlagText name="Indonesian" forwardDelay={0} reverseDelay={2.5} /> student in Asia University located in <AnimatedFlagText name="Taiwan" forwardDelay={0.5} reverseDelay={2} />, 
             majoring in Computer Science and Information Engineering. 
           </p>
         </motion.div>
@@ -429,12 +643,19 @@ export default function Portofolio() {
         variants={fadeInUp}
         transition={{ duration: 0.5 }}
       >
-        <p className="text-center text-muted-foreground text-sm">
+        <p className="text-center text-muted-foreground text-sm mb-6">
           Thanks for visiting! 
         </p>
-        <p className="text-center text-muted-foreground text-sm mt-2">
-          Designed and developed by Neil
-        </p>
+        {bibleVerse && (
+          <div className="text-center mb-6">
+            <p className="text-muted-foreground text-sm italic leading-relaxed">
+              &ldquo;{bibleVerse.text}&rdquo;
+            </p>
+            <p className="text-muted-foreground/70 text-xs mt-2">
+              — {bibleVerse.bookname} {bibleVerse.chapter}:{bibleVerse.verse}
+            </p>
+          </div>
+        )}
       </motion.footer>
     </main>
   );
