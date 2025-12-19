@@ -314,13 +314,13 @@ export default function Portofolio() {
         >
           <p>
             I&apos;m a passionate Frontend Developer currently interning at Versatile.ID, 
-            where I work on building modern web applications. I have a strong foundation 
-            in JavaScript, TypeScript, and React ecosystem.
+            where I work on building modern web3 apps. I have a strong foundation 
+            in JavaScript, TypeScript, and React ecosystem. Also mastering backend technologies to
+            improve my skills and knowledge and build more complex projects/applications.
           </p>
           <p>
-            I&apos;m also a Indonesian student in Asia University located in Taiwan, 
-            majoring in Computer Science and Information Engineering and currently in 
-            my 3rd year of study.
+            For more information about me, I&apos;m a Indonesian student in Asia University located in Taiwan, 
+            majoring in Computer Science and Information Engineering. 
           </p>
         </motion.div>
       </motion.section>
@@ -399,26 +399,23 @@ export default function Portofolio() {
           variants={fadeInUp}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-white flex items-center justify-center p-2">
-                <Image
-                  src="/image.png"
-                  alt="Asia University"
-                  width={60}
-                  height={60}
-                  className="object-contain"
-                />
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-xl font-semibold">Asia University</h3>
-                <p className="text-muted-foreground">Bachelor of Computer Science and Information Engineering</p>
-                <p className="text-sm text-muted-foreground md:hidden">2023 - 2027</p>
-              </div>
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-white flex items-center justify-center p-2">
+              <Image
+                src="/image.png"
+                alt="Asia University"
+                width={60}
+                height={60}
+                className="object-contain"
+              />
             </div>
-            <span className="hidden md:block text-sm text-muted-foreground whitespace-nowrap">
-              2023 - 2027
-            </span>
+            <div className="flex-1 space-y-1">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1">
+                <h3 className="text-xl font-semibold">Asia University</h3>
+                <span className="text-sm text-muted-foreground">2023 - 2027</span>
+              </div>
+              <p className="text-muted-foreground text-sm">Bachelor of Computer Science and Information Engineering</p>
+            </div>
           </div>
         </motion.div>
       </motion.section>
