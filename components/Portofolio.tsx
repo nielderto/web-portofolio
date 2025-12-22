@@ -9,6 +9,7 @@ import {
   Mail,
   ExternalLink,
   FileText,
+  Tag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -98,8 +99,8 @@ const experiences = [
     status: "Working",
     techIcons: ["Next.js", "TypeScript", "React", "TailwindCSS", "Shadcn/ui", "Motion", "Bun"],
     bullets: [
-      "Built and developed the company's official website from the ground up using Next.js, TypeScript, and TailwindCSS, delivering a modern and responsive user experience.",
-      "Designed and implemented the UI/UX of the website, creating intuitive interfaces with smooth animations using Framer Motion and shadcn/ui components.",
+      "Developed the company's official website from the ground up using Next.js, Motion, and TailwindCSS, delivering a modern and responsive user experience.",
+      "Implemented the UI/UX of the website, creating intuitive interfaces with smooth animations using Framer Motion and shadcn/ui components.",
     ],
   },
 ];
@@ -173,29 +174,21 @@ function SmallTechLogo({ name }: { name: string }) {
 
 function AnimatedTechText({ 
   name, 
-  forwardDelay,
-  reverseDelay,
+  delay,
+  shouldAnimate,
 }: { 
   name: string; 
-  forwardDelay: number;
-  reverseDelay: number;
+  delay: number;
+  shouldAnimate: boolean;
 }) {
   const tech = techLogos[name];
   if (!tech) return <span>{name}</span>;
   
-  // Total animation duration for the sequence
-  const totalDuration = 5;
-  
-  // Convert delays to percentages of total duration (0.12 = smoother transition)
-  const forwardStart = forwardDelay / totalDuration;
-  const forwardEnd = forwardStart + 0.12;
-  const reverseStart = reverseDelay / totalDuration;
-  const reverseEnd = reverseStart + 0.12;
-  
+  const totalDuration = 4;
   const textOpacity = [1, 1, 0, 0, 1, 1];
   const logoOpacity = [0, 0, 1, 1, 0, 0];
   const logoScale = [0.8, 0.8, 1, 1, 0.8, 0.8];
-  const times = [0, forwardStart, forwardEnd, reverseStart, reverseEnd, 1];
+  const times = [0, 0.1, 0.2, 0.8, 0.9, 1];
   
   return (
     <motion.span 
@@ -207,13 +200,10 @@ function AnimatedTechText({
         className="text-foreground font-medium"
         style={{ gridArea: "stack" }}
         initial={{ opacity: 1 }}
-        whileInView={{
-          opacity: textOpacity,
-        }}
-        viewport={{ once: true }}
+        animate={shouldAnimate ? { opacity: textOpacity } : { opacity: 1 }}
         transition={{
           duration: totalDuration,
-          delay: 3,
+          delay: delay,
           times: times,
           ease: "easeInOut",
         }}
@@ -224,15 +214,11 @@ function AnimatedTechText({
       <motion.span
         className="flex items-center justify-center"
         style={{ gridArea: "stack" }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{
-          opacity: logoOpacity,
-          scale: logoScale,
-        }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={shouldAnimate ? { opacity: logoOpacity, scale: logoScale } : { opacity: 0 }}
         transition={{
           duration: totalDuration,
-          delay: 3,
+          delay: delay,
           times: times,
           ease: "easeInOut",
         }}
@@ -251,29 +237,21 @@ function AnimatedTechText({
 
 function AnimatedFlagText({ 
   name, 
-  forwardDelay,
-  reverseDelay,
+  delay,
+  shouldAnimate,
 }: { 
   name: string; 
-  forwardDelay: number;
-  reverseDelay: number;
+  delay: number;
+  shouldAnimate: boolean;
 }) {
   const flag = countryFlags[name];
   if (!flag) return <span>{name}</span>;
   
-  // Total animation duration for the sequence
   const totalDuration = 4;
-  
-  // Convert delays to percentages of total duration (0.12 = smoother transition)
-  const forwardStart = forwardDelay / totalDuration;
-  const forwardEnd = forwardStart + 0.12;
-  const reverseStart = reverseDelay / totalDuration;
-  const reverseEnd = reverseStart + 0.12;
-  
   const textOpacity = [1, 1, 0, 0, 1, 1];
   const flagOpacity = [0, 0, 1, 1, 0, 0];
   const flagScale = [0.8, 0.8, 1, 1, 0.8, 0.8];
-  const times = [0, forwardStart, forwardEnd, reverseStart, reverseEnd, 1];
+  const times = [0, 0.1, 0.2, 0.8, 0.9, 1];
   
   return (
     <motion.span 
@@ -285,13 +263,10 @@ function AnimatedFlagText({
         className="text-foreground font-medium"
         style={{ gridArea: "stack" }}
         initial={{ opacity: 1 }}
-        whileInView={{
-          opacity: textOpacity,
-        }}
-        viewport={{ once: true }}
+        animate={shouldAnimate ? { opacity: textOpacity } : { opacity: 1 }}
         transition={{
           duration: totalDuration,
-          delay: 7,
+          delay: delay,
           times: times,
           ease: "easeInOut",
         }}
@@ -302,15 +277,11 @@ function AnimatedFlagText({
       <motion.span
         className="flex items-center justify-center text-lg"
         style={{ gridArea: "stack" }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{
-          opacity: flagOpacity,
-          scale: flagScale,
-        }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={shouldAnimate ? { opacity: flagOpacity, scale: flagScale } : { opacity: 0 }}
         transition={{
           duration: totalDuration,
-          delay: 7,
+          delay: delay,
           times: times,
           ease: "easeInOut",
         }}
@@ -376,9 +347,15 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
       <div className="p-6 space-y-4">
         <h3 className="text-xl font-semibold">{project.title}</h3>
         <p className="text-muted-foreground">{project.description}</p>
-        <div className="flex flex-wrap gap-2 pb-4">
+        <div className="flex items-center gap-2 pb-4 flex-wrap">
+          <Tag className="w-4 h-4 text-muted-foreground flex-shrink-0" />
           {project.techIcons.map((tech, i) => (
-            <SmallTechLogo key={i} name={tech} />
+            <span
+              key={i}
+              className="px-2.5 py-1 text-xs font-medium border border-border text-muted-foreground rounded-full"
+            >
+              {tech}
+            </span>
           ))}
         </div>
         <div className="border-t border-border pt-4 flex items-center justify-between">
@@ -404,6 +381,12 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
 export default function Portofolio() {
   const [bibleVerse, setBibleVerse] = useState<{ text: string; bookname: string; chapter: string; verse: string } | null>(null);
+  const [aboutMeClicked, setAboutMeClicked] = useState(false);
+
+  const handleAboutMeClick = () => {
+    if (aboutMeClicked) return; // Only trigger once
+    setAboutMeClicked(true);
+  };
 
   useEffect(() => {
     const fetchBibleVerse = async () => {
@@ -429,19 +412,40 @@ export default function Portofolio() {
         animate="visible"
         variants={staggerContainer}
       >
-        <motion.h1
-          className="text-4xl md:text-5xl font-bold"
+        <motion.div
+          className="flex items-center gap-5"
           variants={fadeInUp}
           transition={{ duration: 0.5 }}
         >
-          Otneil Xander Susanto
-        </motion.h1>
-        <motion.p className="text-lg" variants={fadeInUp} transition={{ duration: 0.5, delay: 0.1 }}>
-          --&gt; Frontend Developer Intern at{" "}
-          <Link href="https://versatile.id" className="underline hover:text-foreground/80">
-            Versatile.ID
-          </Link>
-        </motion.p>
+          <Image
+            src="/avatar2.jpeg"
+            alt="Otneil Xander Susanto"
+            width={80}
+            height={80}
+            className="rounded-full object-cover"
+          />
+          <div className="flex flex-col">
+            <h1 className="text-2xl md:text-3xl font-bold">
+              <span className="group relative inline-grid cursor-pointer" style={{ gridTemplateAreas: "'stack'" }}>
+                <span 
+                  className="transition-all duration-300 group-hover:opacity-0 group-hover:scale-95"
+                  style={{ gridArea: "stack" }}
+                >
+                  Otneil Xander Susanto
+                </span>
+                <span 
+                  className="opacity-0 scale-105 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100"
+                  style={{ gridArea: "stack" }}
+                >
+                  羅澤遠
+                </span>
+              </span>
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Web Developer
+            </p>
+          </div>
+        </motion.div>
         <motion.div
           className="flex items-center gap-4 pt-4"
           variants={fadeInUp}
@@ -478,8 +482,31 @@ export default function Portofolio() {
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
-        <motion.h2 className="text-2xl font-bold" variants={fadeInUp} transition={{ duration: 0.5 }}>
+        <motion.h2 
+          className={cn(
+            "text-2xl font-bold inline-flex items-center gap-2 cursor-pointer select-none",
+            !aboutMeClicked && "hover:text-foreground/80"
+          )}
+          variants={fadeInUp} 
+          transition={{ duration: 0.5 }}
+          onClick={handleAboutMeClick}
+        >
           About Me
+          {!aboutMeClicked && (
+            <motion.span 
+              className="text-xs text-muted-foreground font-normal"
+              animate={{ 
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              (click me)
+            </motion.span>
+          )}
         </motion.h2>
         <motion.div
           className="space-y-4 text-muted-foreground leading-relaxed"
@@ -487,7 +514,7 @@ export default function Portofolio() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <p>
-            I&apos;m a passionate Web Developer currently interning at{" "}
+            I&apos;m currently interning as a Frontend Developer at{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-foreground font-medium">Versatile.ID</span>
               <svg
@@ -497,29 +524,29 @@ export default function Portofolio() {
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="none"
               >
-                <motion.path
-                  d="M10 20C10 12 20 6 60 6C100 6 110 12 110 20C110 28 100 34 60 34C20 34 10 28 10 20"
-                  stroke="#3B82F6"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ 
-                    pathLength: [0, 1, 0],
-                    opacity: [0, 1, 1]
-                  }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 2.4,
-                    delay: 0.5,
-                    ease: "easeInOut",
-                    times: [0, 0.5, 1],
-                  }}
-                  style={{
-                    filter: "url(#crayon-texture)",
-                  }}
-                />
+                {aboutMeClicked && (
+                  <motion.path
+                    d="M10 20C10 12 20 6 60 6C100 6 110 12 110 20C110 28 100 34 60 34C20 34 10 28 10 20"
+                    stroke="#3B82F6"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fill="none"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ 
+                      pathLength: [0, 1, 0],
+                      opacity: [0, 1, 1]
+                    }}
+                    transition={{
+                      duration: 3,
+                      ease: "easeInOut",
+                      times: [0, 0.5, 1],
+                    }}
+                    style={{
+                      filter: "url(#crayon-texture)",
+                    }}
+                  />
+                )}
                 <defs>
                   <filter id="crayon-texture" x="-20%" y="-20%" width="140%" height="140%">
                     <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
@@ -528,13 +555,11 @@ export default function Portofolio() {
                 </defs>
               </svg>
             </span>
-            , where I work on building modern web3 apps. I have a strong foundation 
-            in <AnimatedTechText name="JavaScript" forwardDelay={0} reverseDelay={3.5} />, <AnimatedTechText name="TypeScript" forwardDelay={0.5} reverseDelay={3} />, and <AnimatedTechText name="React" forwardDelay={1} reverseDelay={2.5} /> ecosystem. Also mastering backend technologies to
-            improve my skills and knowledge and build more complex projects/applications.
+            , where I work on building intuitive web experience. I mainly use 
+            in <AnimatedTechText name="Next.js" delay={2} shouldAnimate={aboutMeClicked} />, <AnimatedTechText name="TailwindCSS" delay={2.5} shouldAnimate={aboutMeClicked} />, and <AnimatedTechText name="TypeScript" delay={3} shouldAnimate={aboutMeClicked} /> as a part of my tech stack.
           </p>
           <p>
-            For more information about me, I&apos;m a <AnimatedFlagText name="Indonesian" forwardDelay={0} reverseDelay={2.5} /> student in Asia University located in <AnimatedFlagText name="Taiwan" forwardDelay={0.5} reverseDelay={2} />, 
-            majoring in Computer Science and Information Engineering. 
+            Based in <AnimatedFlagText name="Taiwan" delay={6} shouldAnimate={aboutMeClicked} />, I&apos;m an <AnimatedFlagText name="Indonesian" delay={6.5} shouldAnimate={aboutMeClicked} /> pursuing Computer Science and Information Engineering at Asia University.
           </p>
         </motion.div>
       </motion.section>
@@ -588,7 +613,7 @@ export default function Portofolio() {
         variants={staggerContainer}
       >
         <motion.h2 className="text-2xl font-bold" variants={fadeInUp} transition={{ duration: 0.5 }}>
-          Projects
+          Featured Projects
         </motion.h2>
         <motion.div className="space-y-6" variants={fadeInUp} transition={{ duration: 0.5, delay: 0.1 }}>
           {projects.map((project, i) => (

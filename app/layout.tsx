@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} antialiased`}
-        style={{ backgroundColor: "#141414" }}
+        style={{ backgroundColor: "#0C0C0C" }}
       >
         <ThemeProvider
           attribute="class"
