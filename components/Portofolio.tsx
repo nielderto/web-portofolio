@@ -421,7 +421,7 @@ export default function Portofolio() {
   }, []);
 
   return (
-    <main className="container mx-auto px-4 py-12 max-w-2xl mt-20 sm:mt-30">
+    <main className="container mx-auto px-4 py-12 max-w-xl mt-20 sm:mt-30">
       {/* Hero Section */}
       <motion.section
         className="space-y-6 mb-16"
@@ -487,7 +487,7 @@ export default function Portofolio() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <p>
-            I&apos;m a passionate Frontend Developer currently interning at{" "}
+            I&apos;m a passionate Web Developer currently interning at{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-foreground font-medium">Versatile.ID</span>
               <svg
@@ -649,7 +649,7 @@ export default function Portofolio() {
         {bibleVerse && (
           <div className="text-center mb-6">
             <p className="text-muted-foreground text-sm italic leading-relaxed">
-              &ldquo;{bibleVerse.text}&rdquo;
+              {bibleVerse.text}
             </p>
             <p className="text-muted-foreground/70 text-xs mt-2">
               — {bibleVerse.bookname} {bibleVerse.chapter}:{bibleVerse.verse}
