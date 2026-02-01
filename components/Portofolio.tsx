@@ -100,16 +100,16 @@ const experiences = [
         title: "Frontend Developer",
         dateRange: "Jan 2026 - Present",
         bullets: [
-          "Revamped the company website design, improving user experience and modernizing the interface with enhanced visual design and interactions.",
-          "Building comprehensive UI components for the application, including dashboard interfaces, user management systems, and other core features.",
+          "Revamped the company website design, improving user experience and visual consistency across all pages.",
+          "Building UI components and interfaces for the application dashboard, user management, and other core features using Next.js, TypeScript, and TailwindCSS.",
         ],
       },
       {
         title: "Frontend Developer Intern",
         dateRange: "Oct 2025 - Jan 2026",
         bullets: [
-          "Created the company's official website from the ground up using Next.js, TypeScript, and TailwindCSS.",
-          "Collaborated on the overall design and user experience, contributing to the visual identity and interface design of the website.",
+          "Created the company's official website from the ground up using Next.js, Framer Motion, and TailwindCSS.",
+          "Helped design the entire website, establishing the visual identity and user interface patterns.",
         ],
       },
     ],
@@ -322,44 +322,41 @@ function ExperienceCard({
   };
 
   return (
-    <div className="relative pl-20 pb-8">
+    <div className="relative pb-8">
       {/* Vertical Timeline Line */}
       {!isLast && (
-        <div className="absolute left-[27px] top-0 bottom-0 w-px bg-border" />
+        <div className="absolute left-[27px] top-[56px] bottom-0 w-px bg-border" />
       )}
       
-      {/* Circular Logo Container */}
-      <div className="absolute left-0 top-0 w-14 h-14 rounded-full bg-black border border-border flex items-center justify-center z-10">
-        <Image
-          src={experience.logo}
-          alt={experience.company}
-          width={32}
-          height={32}
-          className="object-contain"
-        />
+      {/* Logo and Company Name Row */}
+      <div className="flex items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-4">
+          {/* Circular Logo Container */}
+          <div className="relative w-14 h-14 rounded-full bg-black border border-border flex items-center justify-center p-2 flex-shrink-0">
+            <Image
+              src={experience.logo}
+              alt={experience.company}
+              width={24}
+              height={24}
+              className="object-contain"
+            />
+          </div>
+          <h3 className="text-xl font-bold">{experience.company}</h3>
+        </div>
+        <span className="text-sm text-muted-foreground whitespace-nowrap">
+          {getOverallDateRange()}
+        </span>
       </div>
 
       {/* Content */}
-      <div className="space-y-4">
-        {/* Company Name and Overall Date */}
-        <div className="flex items-center justify-between gap-4">
-          <h3 className="text-xl font-bold">{experience.company}</h3>
-          <span className="text-sm text-muted-foreground whitespace-nowrap">
-            {getOverallDateRange()}
-          </span>
-        </div>
+      <div className="space-y-4 pl-20">
 
         {/* Roles */}
         {experience.roles.map((role, roleIndex) => (
           <div key={roleIndex} className="space-y-2">
-            <div className="flex items-center justify-between gap-4">
-              <h4 className="text-base font-normal text-muted-foreground">
-                {role.title}
-              </h4>
-              <span className="text-sm text-muted-foreground whitespace-nowrap">
-                {role.dateRange}
-              </span>
-            </div>
+            <h4 className="text-base font-normal text-muted-foreground">
+              {role.title}
+            </h4>
             {role.bullets.length > 0 && (
               <ul className="list-disc list-outside ml-5 space-y-1.5 text-muted-foreground text-sm">
                 {role.bullets.map((bullet, bulletIndex) => (
