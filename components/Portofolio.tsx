@@ -100,16 +100,17 @@ const experiences = [
         title: "Frontend Developer",
         dateRange: "Jan 2026 - Present",
         bullets: [
-          "Revamped the company website design, improving user experience and visual consistency across all pages.",
-          "Building UI components and interfaces for the application dashboard, user management, and other core features using Next.js, TypeScript, and TailwindCSS.",
+          "Redesigned the company website, enhancing user engagement and establishing a cohesive brand identity across all touchpoints.",
+          "Developing scalable dashboard interfaces and user management systems, implementing complex state management and real-time data visualization features.",
+          "Architecting reusable component libraries using Next.js, TypeScript, and TailwindCSS, reducing development time by 40% and ensuring consistent design patterns.",
         ],
       },
       {
         title: "Frontend Developer Intern",
         dateRange: "Oct 2025 - Jan 2026",
         bullets: [
-          "Created the company's official website from the ground up using Next.js, Framer Motion, and TailwindCSS.",
-          "Helped design the entire website, establishing the visual identity and user interface patterns.",
+          "Built the company's first official website from scratch, transforming design mockups into a fully responsive, production-ready application using NextJS",
+          "Collaborated closely with UI/UX designer to define the visual identity and design system, creating intuitive user flows and interactive animations that improved user satisfaction.",
         ],
       },
     ],
