@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -90,18 +90,30 @@ const techStack = [
   { name: "GitHub", ...techLogos["GitHub"] },
 ];
 
-// Experience data
+// Experience data - company-centric with multiple roles
 const experiences = [
   {
-    title: "Frontend Developer Intern",
     company: "Versatile.ID",
-    dateRange: "Oct 2025 - Present",
-    status: "Working",
-    techIcons: ["Next.js", "TypeScript", "React", "TailwindCSS", "Shadcn/ui", "Motion", "Bun"],
-    bullets: [
-      "Developed the company's official website from the ground up using Next.js, Motion, and TailwindCSS, delivering a modern and responsive user experience.",
-      "Implemented the UI/UX of the website, creating intuitive interfaces with smooth animations using Framer Motion and shadcn/ui components.",
+    logo: "/logo-whiter.png",
+    roles: [
+      {
+        title: "Frontend Developer",
+        dateRange: "Jan 2026 - Present",
+        bullets: [
+          "Revamped the company website design, improving user experience and modernizing the interface with enhanced visual design and interactions.",
+          "Building comprehensive UI components for the application, including dashboard interfaces, user management systems, and other core features.",
+        ],
+      },
+      {
+        title: "Frontend Developer Intern",
+        dateRange: "Oct 2025 - Jan 2026",
+        bullets: [
+          "Created the company's official website from the ground up using Next.js, TypeScript, and TailwindCSS.",
+          "Collaborated on the overall design and user experience, contributing to the visual identity and interface design of the website.",
+        ],
+      },
     ],
+    projectLinks: [{ label: "Versatile.ID", href: "https://versatile.id" }],
   },
 ];
 
@@ -294,41 +306,87 @@ function AnimatedFlagText({
 
 function ExperienceCard({
   experience,
+  isLast,
 }: {
   experience: (typeof experiences)[0];
+  isLast: boolean;
 }) {
+  // Calculate overall date range for the company
+  const getOverallDateRange = () => {
+    if (experience.roles.length === 0) return "";
+    const firstRole = experience.roles[experience.roles.length - 1]; // Oldest role
+    const lastRole = experience.roles[0]; // Most recent role
+    const startDate = firstRole.dateRange.split(" - ")[0];
+    const endDate = lastRole.dateRange.split(" - ")[1];
+    return `${startDate} - ${endDate}`;
+  };
+
   return (
-    <div className="border border-border rounded-lg bg-card overflow-hidden p-6">
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
-        <div className="space-y-3">
-          <div>
-            <h3 className="text-xl font-semibold">{experience.title}</h3>
-            <span className="text-sm text-muted-foreground md:hidden">
-              {experience.dateRange}
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-muted-foreground">
-            <span className="text-white">{experience.company}</span>
-          </div>
-          <div className="flex flex-wrap gap-2 pt-2">
-            {experience.techIcons.map((tech, i) => (
-              <SmallTechLogo key={i} name={tech} />
-            ))}
-          </div>
-        </div>
-        <span className="hidden md:block text-sm text-muted-foreground whitespace-nowrap">
-          {experience.dateRange}
-        </span>
-      </div>
-      {experience.bullets.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-border">
-          <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-            {experience.bullets.map((bullet, i) => (
-              <li key={i}>{bullet}</li>
-            ))}
-          </ul>
-        </div>
+    <div className="relative pl-20 pb-8">
+      {/* Vertical Timeline Line */}
+      {!isLast && (
+        <div className="absolute left-[27px] top-0 bottom-0 w-px bg-border" />
       )}
+      
+      {/* Circular Logo Container */}
+      <div className="absolute left-0 top-0 w-14 h-14 rounded-full bg-black border border-border flex items-center justify-center z-10">
+        <Image
+          src={experience.logo}
+          alt={experience.company}
+          width={32}
+          height={32}
+          className="object-contain"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="space-y-4">
+        {/* Company Name and Overall Date */}
+        <div className="flex items-center justify-between gap-4">
+          <h3 className="text-xl font-bold">{experience.company}</h3>
+          <span className="text-sm text-muted-foreground whitespace-nowrap">
+            {getOverallDateRange()}
+          </span>
+        </div>
+
+        {/* Roles */}
+        {experience.roles.map((role, roleIndex) => (
+          <div key={roleIndex} className="space-y-2">
+            <div className="flex items-center justify-between gap-4">
+              <h4 className="text-base font-normal text-muted-foreground">
+                {role.title}
+              </h4>
+              <span className="text-sm text-muted-foreground whitespace-nowrap">
+                {role.dateRange}
+              </span>
+            </div>
+            {role.bullets.length > 0 && (
+              <ul className="list-disc list-outside ml-5 space-y-1.5 text-muted-foreground text-sm">
+                {role.bullets.map((bullet, bulletIndex) => (
+                  <li key={bulletIndex}>{bullet}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+
+        {/* Project Links */}
+        {experience.projectLinks && experience.projectLinks.length > 0 && (
+          <div className="pt-2 flex flex-wrap gap-2">
+            {experience.projectLinks.map((link, linkIndex) => (
+              <Link
+                key={linkIndex}
+                href={link.href}
+                target="_blank"
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs border border-border rounded-full hover:bg-muted transition-colors"
+              >
+                <ExternalLink className="w-3 h-3" />
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -379,29 +437,20 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   );
 }
 
-export default function Portofolio() {
-  const [bibleVerse, setBibleVerse] = useState<{ text: string; bookname: string; chapter: string; verse: string } | null>(null);
+export type BibleVerse = {
+  text: string;
+  bookname: string;
+  chapter: string;
+  verse: string;
+} | null;
+
+export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) {
   const [aboutMeClicked, setAboutMeClicked] = useState(false);
 
   const handleAboutMeClick = () => {
     if (aboutMeClicked) return; // Only trigger once
     setAboutMeClicked(true);
   };
-
-  useEffect(() => {
-    const fetchBibleVerse = async () => {
-      try {
-        const response = await fetch("https://labs.bible.org/api/?passage=votd&type=json");
-        const data = await response.json();
-        if (data && data[0]) {
-          setBibleVerse(data[0]);
-        }
-      } catch (error) {
-        console.error("Failed to fetch Bible verse:", error);
-      }
-    };
-    fetchBibleVerse();
-  }, []);
 
   return (
     <main className="container mx-auto px-4 py-12 max-w-xl mt-20 sm:mt-30">
@@ -514,7 +563,7 @@ export default function Portofolio() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <p>
-            I&apos;m currently interning as a Frontend Developer at{" "}
+            I&apos;m currently working as a Frontend Developer at{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-foreground font-medium">Versatile.ID</span>
               <svg
@@ -575,9 +624,13 @@ export default function Portofolio() {
         <motion.h2 className="text-2xl font-bold" variants={fadeInUp} transition={{ duration: 0.5 }}>
           Experience
         </motion.h2>
-        <motion.div className="space-y-4" variants={fadeInUp} transition={{ duration: 0.5, delay: 0.1 }}>
+        <motion.div className="relative" variants={fadeInUp} transition={{ duration: 0.5, delay: 0.1 }}>
           {experiences.map((exp, i) => (
-            <ExperienceCard key={i} experience={exp} />
+            <ExperienceCard 
+              key={i} 
+              experience={exp} 
+              isLast={i === experiences.length - 1}
+            />
           ))}
         </motion.div>
       </motion.section>

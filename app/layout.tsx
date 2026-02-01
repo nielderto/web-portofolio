@@ -26,7 +26,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
         style={{ backgroundColor: "#0C0C0C" }}
-      >
+      suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
