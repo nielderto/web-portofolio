@@ -102,7 +102,7 @@ const experiences = [
         bullets: [
           "Redesigned the company website, enhancing user engagement and establishing a cohesive brand identity across all touchpoints.",
           "Developing scalable dashboard interfaces and user management systems, implementing complex state management and real-time data visualization features.",
-          "Architecting reusable component libraries using Next.js, TypeScript, and TailwindCSS, reducing development time by 40% and ensuring consistent design patterns.",
+          "Architecting reusable component libraries using Next.js, TypeScript, and TailwindCSS, reducing development time and ensuring consistent design patterns.",
         ],
       },
       {
@@ -159,26 +159,6 @@ function TechLogo({ name, logo, invert }: { name: string; logo: string; invert?:
         className={cn("object-contain", invert && "invert")}
       />
       <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-popover border border-border rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-        {name}
-      </span>
-    </div>
-  );
-}
-
-function SmallTechLogo({ name }: { name: string }) {
-  const tech = techLogos[name];
-  if (!tech) return null;
-  
-  return (
-    <div className="group relative flex items-center justify-center w-8 h-8 rounded-full bg-muted/50">
-      <Image
-        src={tech.logo}
-        alt={name}
-        width={18}
-        height={18}
-        className={cn("object-contain", tech.invert && "invert")}
-      />
-      <span className="absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-popover border border-border rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
         {name}
       </span>
     </div>
