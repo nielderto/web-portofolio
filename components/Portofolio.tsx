@@ -1,18 +1,37 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
   Github,
   Linkedin,
   Mail,
-  ExternalLink,
   FileText,
-  Tag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+
+function CyclingText() {
+  const duration = 8;
+  const times = [0, 0.36, 0.44, 0.86, 0.94, 1];
+
+  return (
+    <span className="inline-block h-5 overflow-hidden text-sm text-muted-foreground">
+      <motion.span
+        className="flex flex-col"
+        animate={{ y: ["0%", "0%", "-50%", "-50%", "0%", "0%"] }}
+        transition={{ duration, times, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <span className="flex h-5 items-center whitespace-nowrap">
+          Web Developer &amp; Software Engineer
+        </span>
+        <span className="flex h-5 items-center whitespace-nowrap">
+          Originally from Indonesia, based in Taiwan.
+        </span>
+      </motion.span>
+    </span>
+  );
+}
 
 // Animation variants
 const fadeInUp = {
@@ -28,12 +47,6 @@ const staggerContainer = {
       staggerChildren: 0.1,
     },
   },
-};
-
-// Country flags mapping (emoji)
-const countryFlags: Record<string, string> = {
-  "Indonesian": "🇮🇩",
-  "Taiwan": "🇹🇼",
 };
 
 // Tech logos mapping for reuse
@@ -90,31 +103,33 @@ const techStack = [
   { name: "GitHub", ...techLogos["GitHub"] },
 ];
 
+type Experience = {
+  company: string;
+  href?: string;
+  logo?: string;
+  roles: {
+    title?: string;
+    dateRange: string;
+    bullets: string[];
+  }[];
+};
+
 // Experience data - company-centric with multiple roles
-const experiences = [
+const experiences: Experience[] = [
   {
     company: "Versatile.ID",
-    logo: "/logo-whiter.png",
+    href: "https://versatile.id",
     roles: [
       {
         title: "Frontend Developer",
-        dateRange: "Jan 2026 - Present",
+        dateRange: "Oct 2025 - Present",
         bullets: [
-          "Redesigned the company website, enhancing user engagement and establishing a cohesive brand identity across all touchpoints.",
-          "Developing scalable dashboard interfaces and user management systems, implementing complex state management and real-time data visualization features.",
-          "Architecting reusable component libraries using Next.js, TypeScript, and TailwindCSS, reducing development time and ensuring consistent design patterns.",
-        ],
-      },
-      {
-        title: "Frontend Developer Intern",
-        dateRange: "Oct 2025 - Jan 2026",
-        bullets: [
-          "Built the company's first official website from scratch, transforming design mockups into a fully responsive, production-ready application using NextJS",
-          "Collaborated closely with UI/UX designer to define the visual identity and design system, creating intuitive user flows and interactive animations that improved user satisfaction.",
+          "Maintained a clean codebase and improved the website's speed and SEO.",
+          "Built scalable dashboard interfaces with complex state management and real-time data visualization.",
+          "Took the company's first official website from zero to production.",
         ],
       },
     ],
-    projectLinks: [{ label: "Versatile.ID", href: "https://versatile.id" }],
   },
 ];
 
@@ -122,21 +137,27 @@ const experiences = [
 const projects = [
   {
     title: "OnPay",
-    description:
-      "OnPay is a seamless, gas-free payment app designed to simplify transactions for everyone. Built with a clean, user-friendly interface, OnPay bridges the gap between Web2 and Web3, making it easy for anyone to send and receive payments using IDRX.",
-    image: "/onpay.png",
-    techIcons: ["Next.js", "TailwindCSS", "React Hook Form", "React Query", "Zod", "Xellarkit"],
+    description: "A seamless, gas-free payment app bridging Web2 and Web3 using IDRX.",
     codeLink: "https://github.com/nielderto/OnPay",
     demoLink: "https://youtu.be/aYsm5ScMwxs?si=NVKFfHBbZIvJOanV",
   },
   {
     title: "LinkFi",
-    description:
-      "LinkFi is a payment solution similar to Stripe but built with cross-chain blockchain payments. It features capabilities that enable users to pay cross-chain as long as it is EVM supported.",
-    image: "/linkfi.png",
-    techIcons: ["React", "Tanstack Router", "Supabase", "Chart.js", "React Query", "React Hook Form", "Zustand", "TailwindCSS", "Thirdweb"],
+    description: "A cross-chain payment solution supporting all EVM-compatible chains with real-time analytics.",
     codeLink: "https://github.com/FOwen123/Chromion-2025",
     demoLink: "https://www.youtube.com/watch?v=hZikjbj44sM",
+  },
+  {
+    title: "Curad",
+    description: "A Reddit clone built to understand databases and backend fundamentals.",
+    codeLink: "https://github.com/nielderto/Curad",
+    demoLink: "",
+  },
+  {
+    title: "Payment Links",
+    description: "A fullstack app for creating and sharing payment links, built to learn backend fundamentals — HTTP, middleware, auth, JWT, and database operations using Neon.",
+    codeLink: "https://github.com/nielderto/payment-links-backend",
+    demoLink: "",
   },
 ];
 
@@ -165,131 +186,12 @@ function TechLogo({ name, logo, invert }: { name: string; logo: string; invert?:
   );
 }
 
-function AnimatedTechText({ 
-  name, 
-  delay,
-  shouldAnimate,
-}: { 
-  name: string; 
-  delay: number;
-  shouldAnimate: boolean;
-}) {
-  const tech = techLogos[name];
-  if (!tech) return <span>{name}</span>;
-  
-  const totalDuration = 4;
-  const textOpacity = [1, 1, 0, 0, 1, 1];
-  const logoOpacity = [0, 0, 1, 1, 0, 0];
-  const logoScale = [0.8, 0.8, 1, 1, 0.8, 0.8];
-  const times = [0, 0.1, 0.2, 0.8, 0.9, 1];
-  
-  return (
-    <motion.span 
-      className="relative inline-grid place-items-center"
-      style={{ gridTemplateAreas: "'stack'" }}
-    >
-      {/* Text - fades out when logo appears */}
-      <motion.span
-        className="text-foreground font-medium"
-        style={{ gridArea: "stack" }}
-        initial={{ opacity: 1 }}
-        animate={shouldAnimate ? { opacity: textOpacity } : { opacity: 1 }}
-        transition={{
-          duration: totalDuration,
-          delay: delay,
-          times: times,
-          ease: "easeInOut",
-        }}
-      >
-        {name}
-      </motion.span>
-      {/* Logo - stacked on same grid area */}
-      <motion.span
-        className="flex items-center justify-center"
-        style={{ gridArea: "stack" }}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={shouldAnimate ? { opacity: logoOpacity, scale: logoScale } : { opacity: 0 }}
-        transition={{
-          duration: totalDuration,
-          delay: delay,
-          times: times,
-          ease: "easeInOut",
-        }}
-      >
-        <Image
-          src={tech.logo}
-          alt={name}
-          width={22}
-          height={22}
-          className={cn("object-contain", tech.invert && "invert")}
-        />
-      </motion.span>
-    </motion.span>
-  );
-}
-
-function AnimatedFlagText({ 
-  name, 
-  delay,
-  shouldAnimate,
-}: { 
-  name: string; 
-  delay: number;
-  shouldAnimate: boolean;
-}) {
-  const flag = countryFlags[name];
-  if (!flag) return <span>{name}</span>;
-  
-  const totalDuration = 4;
-  const textOpacity = [1, 1, 0, 0, 1, 1];
-  const flagOpacity = [0, 0, 1, 1, 0, 0];
-  const flagScale = [0.8, 0.8, 1, 1, 0.8, 0.8];
-  const times = [0, 0.1, 0.2, 0.8, 0.9, 1];
-  
-  return (
-    <motion.span 
-      className="relative inline-grid place-items-center"
-      style={{ gridTemplateAreas: "'stack'" }}
-    >
-      {/* Text - fades out when flag appears */}
-      <motion.span
-        className="text-foreground font-medium"
-        style={{ gridArea: "stack" }}
-        initial={{ opacity: 1 }}
-        animate={shouldAnimate ? { opacity: textOpacity } : { opacity: 1 }}
-        transition={{
-          duration: totalDuration,
-          delay: delay,
-          times: times,
-          ease: "easeInOut",
-        }}
-      >
-        {name}
-      </motion.span>
-      {/* Flag emoji - stacked on same grid area */}
-      <motion.span
-        className="flex items-center justify-center text-lg"
-        style={{ gridArea: "stack" }}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={shouldAnimate ? { opacity: flagOpacity, scale: flagScale } : { opacity: 0 }}
-        transition={{
-          duration: totalDuration,
-          delay: delay,
-          times: times,
-          ease: "easeInOut",
-        }}
-      >
-        {flag}
-      </motion.span>
-    </motion.span>
-  );
-}
 
 function ExperienceCard({
   experience,
   isLast,
 }: {
-  experience: (typeof experiences)[0];
+  experience: Experience;
   isLast: boolean;
 }) {
   // Calculate overall date range for the company
@@ -305,24 +207,37 @@ function ExperienceCard({
   return (
     <div className="relative pb-8">
       {/* Vertical Timeline Line */}
-      {!isLast && (
+      {!isLast && experience.logo && (
         <div className="absolute left-[27px] top-[56px] bottom-0 w-px bg-border" />
       )}
       
-      {/* Logo and Company Name Row */}
+      {/* Company Name Row */}
       <div className="flex items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-4">
-          {/* Circular Logo Container */}
-          <div className="relative w-14 h-14 rounded-full bg-black border border-border flex items-center justify-center p-2 flex-shrink-0">
-            <Image
-              src={experience.logo}
-              alt={experience.company}
-              width={24}
-              height={24}
-              className="object-contain"
-            />
-          </div>
-          <h3 className="text-xl font-bold">{experience.company}</h3>
+          {experience.logo && (
+            <div className="relative w-14 h-14 rounded-full bg-black border border-border flex items-center justify-center p-2 flex-shrink-0">
+              <Image
+                src={experience.logo}
+                alt={experience.company}
+                width={24}
+                height={24}
+                className="object-contain"
+              />
+            </div>
+          )}
+          <h3 className="text-xl font-bold">
+            {experience.href ? (
+              <Link
+                href={experience.href}
+                target="_blank"
+                className="hover:underline"
+              >
+                {experience.company}
+              </Link>
+            ) : (
+              experience.company
+            )}
+          </h3>
         </div>
         <span className="text-sm text-muted-foreground whitespace-nowrap">
           {getOverallDateRange()}
@@ -330,14 +245,14 @@ function ExperienceCard({
       </div>
 
       {/* Content */}
-      <div className="space-y-4 pl-20">
+      <div className={cn("space-y-4", experience.logo && "pl-20")}>
 
         {/* Roles */}
         {experience.roles.map((role, roleIndex) => (
           <div key={roleIndex} className="space-y-2">
-            <h4 className="text-base font-normal text-muted-foreground">
-              {role.title}
-            </h4>
+            {role.title && (
+              <p className="text-sm font-medium text-foreground">{role.title}</p>
+            )}
             {role.bullets.length > 0 && (
               <ul className="list-disc list-outside ml-5 space-y-1.5 text-muted-foreground text-sm">
                 {role.bullets.map((bullet, bulletIndex) => (
@@ -347,73 +262,11 @@ function ExperienceCard({
             )}
           </div>
         ))}
-
-        {/* Project Links */}
-        {experience.projectLinks && experience.projectLinks.length > 0 && (
-          <div className="pt-2 flex flex-wrap gap-2">
-            {experience.projectLinks.map((link, linkIndex) => (
-              <Link
-                key={linkIndex}
-                href={link.href}
-                target="_blank"
-                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs border border-border rounded-full hover:bg-muted transition-colors"
-              >
-                <ExternalLink className="w-3 h-3" />
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
-  return (
-    <div className="border border-border rounded-lg bg-card overflow-hidden">
-      <div className="relative aspect-video">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover"
-        />
-      </div>
-      <div className="p-6 space-y-4">
-        <h3 className="text-xl font-semibold">{project.title}</h3>
-        <p className="text-muted-foreground">{project.description}</p>
-        <div className="flex items-center gap-2 pb-4 flex-wrap">
-          <Tag className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          {project.techIcons.map((tech, i) => (
-            <span
-              key={i}
-              className="px-2.5 py-1 text-xs font-medium border border-border text-muted-foreground rounded-full"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-        <div className="border-t border-border pt-4 flex items-center justify-between">
-          <Link
-            href={project.codeLink}
-            className="inline-flex items-center gap-2 text-foreground hover:underline"
-          >
-            <Github className="w-5 h-5" />
-            <span>Code</span>
-          </Link>
-          <Link
-            href={project.demoLink}
-            className="inline-flex items-center gap-2 text-foreground hover:underline"
-          >
-            <ExternalLink className="w-5 h-5" />
-            <span>Demo</span>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export type BibleVerse = {
   text: string;
@@ -423,13 +276,6 @@ export type BibleVerse = {
 } | null;
 
 export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) {
-  const [aboutMeClicked, setAboutMeClicked] = useState(false);
-
-  const handleAboutMeClick = () => {
-    if (aboutMeClicked) return; // Only trigger once
-    setAboutMeClicked(true);
-  };
-
   return (
     <main className="container mx-auto px-4 py-12 max-w-xl mt-20 sm:mt-30">
       {/* Hero Section */}
@@ -440,17 +286,10 @@ export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) 
         variants={staggerContainer}
       >
         <motion.div
-          className="flex items-center gap-5"
+          className="flex items-center justify-between gap-5"
           variants={fadeInUp}
           transition={{ duration: 0.5 }}
         >
-          <Image
-            src="/avatar2.jpeg"
-            alt="Otneil Xander Susanto"
-            width={80}
-            height={80}
-            className="rounded-full object-cover"
-          />
           <div className="flex flex-col">
             <h1 className="text-2xl md:text-3xl font-bold">
               <span className="group relative inline-grid cursor-pointer" style={{ gridTemplateAreas: "'stack'" }}>
@@ -468,10 +307,15 @@ export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) 
                 </span>
               </span>
             </h1>
-            <p className="text-lg text-muted-foreground">
-              Web Developer
-            </p>
+            <CyclingText />
           </div>
+          <Image
+            src="/avatar2.jpeg"
+            alt="Otneil Xander Susanto"
+            width={80}
+            height={80}
+            className="rounded-full object-cover flex-shrink-0"
+          />
         </motion.div>
         <motion.div
           className="flex items-center gap-4 pt-4"
@@ -501,96 +345,6 @@ export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) 
         </motion.div>
       </motion.section>
 
-      {/* About Me Section */}
-      <motion.section
-        className="space-y-4 mb-16"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
-      >
-        <motion.h2 
-          className={cn(
-            "text-2xl font-bold inline-flex items-center gap-2 cursor-pointer select-none",
-            !aboutMeClicked && "hover:text-foreground/80"
-          )}
-          variants={fadeInUp} 
-          transition={{ duration: 0.5 }}
-          onClick={handleAboutMeClick}
-        >
-          About Me
-          {!aboutMeClicked && (
-            <motion.span 
-              className="text-xs text-muted-foreground font-normal"
-              animate={{ 
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              (click me)
-            </motion.span>
-          )}
-        </motion.h2>
-        <motion.div
-          className="space-y-4 text-muted-foreground leading-relaxed"
-          variants={fadeInUp}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <p>
-            I&apos;m currently working as a Frontend Developer at{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10 text-foreground font-medium">Versatile.ID</span>
-              <svg
-                className="absolute -inset-x-4 -inset-y-2 w-[calc(100%+32px)] h-[calc(100%+16px)]"
-                viewBox="0 0 120 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                {aboutMeClicked && (
-                  <motion.path
-                    d="M10 20C10 12 20 6 60 6C100 6 110 12 110 20C110 28 100 34 60 34C20 34 10 28 10 20"
-                    stroke="#3B82F6"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ 
-                      pathLength: [0, 1, 0],
-                      opacity: [0, 1, 1]
-                    }}
-                    transition={{
-                      duration: 3,
-                      ease: "easeInOut",
-                      times: [0, 0.5, 1],
-                    }}
-                    style={{
-                      filter: "url(#crayon-texture)",
-                    }}
-                  />
-                )}
-                <defs>
-                  <filter id="crayon-texture" x="-20%" y="-20%" width="140%" height="140%">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G" />
-                  </filter>
-                </defs>
-              </svg>
-            </span>
-            , where I work on building intuitive web experience. I mainly use 
-            in <AnimatedTechText name="Next.js" delay={2} shouldAnimate={aboutMeClicked} />, <AnimatedTechText name="TailwindCSS" delay={2.5} shouldAnimate={aboutMeClicked} />, and <AnimatedTechText name="TypeScript" delay={3} shouldAnimate={aboutMeClicked} /> as a part of my tech stack.
-          </p>
-          <p>
-            Based in <AnimatedFlagText name="Taiwan" delay={6} shouldAnimate={aboutMeClicked} />, I&apos;m an <AnimatedFlagText name="Indonesian" delay={6.5} shouldAnimate={aboutMeClicked} /> pursuing Computer Science and Information Engineering at Asia University.
-          </p>
-        </motion.div>
-      </motion.section>
-
       {/* Recent Experience Section */}
       <motion.section
         className="space-y-6 mb-16"
@@ -599,7 +353,7 @@ export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) 
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
-        <motion.h2 className="text-2xl font-bold" variants={fadeInUp} transition={{ duration: 0.5 }}>
+        <motion.h2 className="text-2xl font-bold border-l-2 border-border pl-3" variants={fadeInUp} transition={{ duration: 0.5 }}>
           Experience
         </motion.h2>
         <motion.div className="relative" variants={fadeInUp} transition={{ duration: 0.5, delay: 0.1 }}>
@@ -621,7 +375,7 @@ export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) 
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
-        <motion.h2 className="text-2xl font-bold" variants={fadeInUp} transition={{ duration: 0.5 }}>
+        <motion.h2 className="text-2xl font-bold border-l-2 border-border pl-3" variants={fadeInUp} transition={{ duration: 0.5 }}>
           Tech Stack
         </motion.h2>
         <motion.div
@@ -643,14 +397,24 @@ export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) 
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
-        <motion.h2 className="text-2xl font-bold" variants={fadeInUp} transition={{ duration: 0.5 }}>
-          Featured Projects
+        <motion.h2 className="text-2xl font-bold border-l-2 border-border pl-3" variants={fadeInUp} transition={{ duration: 0.5 }}>
+          Projects
         </motion.h2>
-        <motion.div className="space-y-6" variants={fadeInUp} transition={{ duration: 0.5, delay: 0.1 }}>
+        <motion.ul
+          className="list-disc list-outside ml-5 space-y-2 text-muted-foreground"
+          variants={fadeInUp}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           {projects.map((project, i) => (
-            <ProjectCard key={i} project={project} />
+            <li key={i}>
+              <Link href={project.codeLink} target="_blank" className="text-foreground font-medium hover:underline">
+                {project.title}
+              </Link>
+              {": "}
+              {project.description}
+            </li>
           ))}
-        </motion.div>
+        </motion.ul>
       </motion.section>
 
       {/* Education Section */}
@@ -661,7 +425,7 @@ export default function Portofolio({ bibleVerse }: { bibleVerse?: BibleVerse }) 
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
-        <motion.h2 className="text-2xl font-bold" variants={fadeInUp} transition={{ duration: 0.5 }}>
+        <motion.h2 className="text-2xl font-bold border-l-2 border-border pl-3" variants={fadeInUp} transition={{ duration: 0.5 }}>
           Education
         </motion.h2>
         <motion.div
