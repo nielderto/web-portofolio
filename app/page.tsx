@@ -1,5 +1,4 @@
 import Portofolio, { BibleVerse } from "@/components/Portofolio";
-import PreOpener from "@/components/PreOpener";
 
 async function fetchBibleVerse(): Promise<BibleVerse> {
   try {
@@ -20,8 +19,6 @@ export default async function Home() {
   const bibleVerse = await fetchBibleVerse();
 
   return (
-    <PreOpener>
-      <Portofolio bibleVerse={bibleVerse} />
-    </PreOpener>
+    <Portofolio bibleVerse={bibleVerse} />
   );
 }
